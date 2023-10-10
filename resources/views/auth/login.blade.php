@@ -11,7 +11,7 @@
                         <h3 class="text-center m-b-20">تسجيل الدخول</h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="الايميل" name="email" value="">
+                                <input class="form-control" type="text" required="" placeholder="الايميل" name="phone" value="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group text-center">
                             <div class="col-xs-12 p-b-20">
-                                <button style="margin-top:2%;" class="btn btn-block btn-lg btn-info btn-rounded" type="submit" name="login">تسجيل الدخول</button>
+                                <button style="margin-top:2%;" class="btn btn-block btn-lg btn-info btn-rounded" type="submit">تسجيل الدخول</button>
                             </div>
                         </div>
 

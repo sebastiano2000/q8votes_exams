@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,13 +21,11 @@ Route::get('/', function () {
 });
 
 
-
 Route::group(['prefix' => 'register'], function () {
     Route::post('/data', [RegisterController::class, 'create'])->name('register.create');
     Route::get('/verification', [RegisterController::class, 'verification'])->name('register.verification');
     Route::post('/store', [RegisterController::class, 'store'])->name('register.store');
-    Route::get('/success',[RegisterController::class,'success'])->name('register.success');
-
+    Route::get('/success', [RegisterController::class, 'success'])->name('register.success');
 });
 
 
@@ -35,6 +34,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::group(['prefix' => 'forget-password'], function () {
+    Route::get('/', [ResetPasswordController::class, 'index'])->name('forget-password.reset');
+    Route::post('/data', [ResetPasswordController::class, 'create'])->name('forget-password.reset');
+    Route::get('/verification', [ResetPasswordController::class, 'verification'])->name('forget-password.verification');
+    Route::post('/check', [ResetPasswordController::class, 'check'])->name('forget-password.check');
+    Route::post('/send', [ResetPasswordController::class, 'send'])->name('forget-password.send');
+});
 
 Auth::routes();
 

@@ -93,6 +93,7 @@ class RegisterController extends Controller
             'name' => $user['name'],
             'phone' => $user['phone'],
             'password' => Hash::make($user['password']),
+            'role_id' => 2,
         ]);
 
         return redirect()->route('register.success');

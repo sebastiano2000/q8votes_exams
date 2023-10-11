@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +30,22 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function index()
+    {
+        return view('auth.passwords.forget-password');
+    }
+
+    public function check(Request $request){
+        $user = User::where('phone', $request->phone)->first();
+        if ($user) {
+            return view(
+                'auth.passwords.verification',
+                [
+                    'user' => $user,
+                    'country_code' => $request->countryCode
+                ]
+            );
+        }
+    }
 }

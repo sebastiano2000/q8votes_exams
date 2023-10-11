@@ -1,10 +1,11 @@
 @extends('layouts.app')
+
 @section('content')
 <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
-                <div class="card text-black" style="border-radius: 25px;">
+                <div class="card text-black shadow" style="border-radius: 25px;">
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
@@ -13,53 +14,52 @@
                                 </p>
                                 <form method="POST" action="{{ route('register.create')}}" onsubmit="validate()">
                                     @csrf
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="name">
-                                                {{__('pages.Full name')}}
-                                            </label>
-                                            <input id="name" type="name" class="form-control" name="name"
-                                                value="{{ old('name') }}" required autocomplete="name">
-                                        </div>
+                                    <div class="form-outline flex-fill mb-4">
+                                        <label class="form-label" for="name">
+                                            {{__('pages.Full name')}}
+                                        </label>
+                                        <input id="name" type="name" class="form-control" name="name"
+                                            value="{{ old('name') }}" required autocomplete="name">
                                     </div>
 
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="phone">
-                                                {{__('pages.Phone')}}
-                                            </label>
-                                            <div class="input-group">
-                                                <x-country-phone-code></x-country-phone-code>
-                                                <input id="phone" type="phone" class="form-control mr-2" name="phone"
-                                                    value="{{ old('phone') }}" required autocomplete="phone">
-                                            </div>
+                                    <div class="form-outline flex-fill mb-4">
+                                        <label class="form-label" for="phone">
+                                            {{__('pages.Phone')}}
+                                        </label>
+                                        <div class="input-group">
+                                            <x-country-phone-code></x-country-phone-code>
+                                            <input id="phone" type="text"
+                                                class="form-control mr-2 @error('phone') is-invalid @enderror"
+                                                placeholder="رقم الهاتف"" name=" phone" value="{{ old('phone') }}"
+                                                required autocomplete="phone">
                                         </div>
+                                        @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
 
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="password">
-                                                كلمة المرور
-                                            </label>
-                                            <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                name="password" required autocomplete="new-password">
-                                            @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
+                                    <div class="form-outline flex-fill mb-4">
+                                        <label class="form-label" for="password">
+                                            كلمة المرور
+                                        </label>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="new-password">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
 
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="confirm-password">
-                                                تأكيد كلمة المرور
-                                            </label>
-                                            <input id="password-confirm" type="password" class="form-control"
-                                                name="password_confirmation" required autocomplete="new-password">
-                                        </div>
+                                    <div class="form-outline flex-fill mb-4">
+                                        <label class="form-label" for="confirm-password">
+                                            تأكيد كلمة المرور
+                                        </label>
+                                        <input id="password-confirm" type="password" class="form-control"
+                                            name="password_confirmation" required autocomplete="new-password">
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
@@ -87,29 +87,26 @@
 
 <script>
     function validate() {
-    var phone = document.getElementById("phone").value;
-    var password = document.getElementById("password").value;
-    var password_confirmation = document.getElementById("password-confirm").value;
-    var name = document.getElementById("name").value;
+        var phone = document.getElementById("phone").value;
+        var password = document.getElementById("password").value;
+        var password_confirmation = document.getElementById("password-confirm").value;
+        var name = document.getElementById("name").value;
 
-    if (phone == "" || password == "" || password_confirmation == "" || name == "") {
-        event.preventDefault();
-        alert("يجب ملئ جميع الحقول");
+        if (phone == "" || password == "" || password_confirmation == "" || name == "") {
+            event.preventDefault();
+            alert("يجب ملئ جميع الحقول");
+        }
+
+        if (password != password_confirmation) {
+            event.preventDefault();
+            alert("كلمة المرور غير متطابقة");
+        }
+
+        if (isNaN(phone)) {
+            event.preventDefault();
+            alert("رقم الهاتف يجب أن يكون أرقام فقط");
+        }
     }
-
-    if (password != password_confirmation) {
-        event.preventDefault();
-        alert("كلمة المرور غير متطابقة");
-    }
-
-    if (isNaN(phone)) {
-        event.preventDefault();
-        alert("رقم الهاتف يجب أن يكون أرقام فقط");
-    }
-
-}
-
-
 </script>
 
 @endsection

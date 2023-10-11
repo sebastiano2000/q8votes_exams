@@ -47,11 +47,9 @@ class UserRequest extends FormRequest
         return [
             'name.required' => 'يجب عليك إدخال الاسم',
             'phone.required' => 'يجب عليك إدخال رقم الهاتف',
-            'email.required' => 'يجب عليك إدخال لبريد الالكتروني',
             'password.required' => 'يجب عليك إدخال  كلمة السر',
             'password.confirmed' => 'تأكيد كلمة السر غير متطابق',
             'phone.unique' => 'رقم الهاتف مسجل لدينا بالفعل',
-            'email.unique' => 'البريد الالكتروني مسجل لدينا بالفعل',
         ];
     }
 }

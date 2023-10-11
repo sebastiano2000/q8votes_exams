@@ -17,7 +17,7 @@ class Log extends Model
     { 
         if(Auth::hasUser())
         {
-            if(! Auth::user()->isSuperAdmin())
+            if(! Auth::user()->isAdmin())
             {
                 static::addGlobalScope(new TenantScope());
             } 

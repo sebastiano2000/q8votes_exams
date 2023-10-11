@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -25,6 +26,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'phone',
+        'password',
         'role_id',
         'suspend',
         'finish'
@@ -49,6 +51,39 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    static function upsertInstance($request)
+    {
+        if ($request->password) {
+            $user = User::updateOrCreate(
+                [
+                    'id' => $request->id ?? null
+                ],
+                [
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                    'password' => Hash::make($request->password),
+                    'role_id' => 2,
+                ]
+            );
+        } else {
+            $user = User::updateOrCreate(
+                [
+                    'id' => $request->id ?? null
+                ],
+                [
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                ]
+            );
+        }
+
+        return $user;
+    }
+
+    static function statusUpdate($request)
+    {
+        return User::where('id', $request->id)->update(['suspend' => $request->suspend]);
+    }
 
     public function scopeFilter($query, $request)
     {

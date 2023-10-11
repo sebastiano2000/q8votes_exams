@@ -59,38 +59,46 @@
                     </a>
                 </div>
                 <div class=" navbar-collapse">
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item"><a
-                                        class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark"
-                                        href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                                <li class="nav-item"><a
-                                        class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
-                                        href="javascript:void(0)"><i class="icon-menu"></i></a></li>
-                                <li class="nav-item">
-                                    <form class="app-search d-none d-md-block d-lg-block">
-                                        <input type="text" class="form-control" placeholder="Search & enter">
-                                    </form>
-                                </li>
-                            </ul>
-                            <ul class="navbar-nav my-lg-0">
-                                <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light"
-                                        href="javascript:void(0)"><i class="ti-settings"></i></a></li>
-                            </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a
+                                class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+                        <li class="nav-item"><a
+                                class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="icon-menu"></i></a></li>
+                        <li class="nav-item">
+                            <form class="app-search d-none d-md-block d-lg-block">
+                                <input type="text" class="form-control" placeholder="Search & enter">
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-lg-0">
+                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light"
+                                href="javascript:void(0)"><i class="ti-settings"></i></a></li>
+                    </ul>
                 </div>
             </nav>
         </header>
         <aside class="left-sidebar">
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
-                    <div class="p-2 text-center" style="font-size: 22px; font-weight: bold;">{{ Auth::user()->name }}
+                    <div class="p-2 text-center" style="font-size: 22px; font-weight: bold;">
+                    {{ Auth::user()->name }}
                     </div>
                     <ul id="sidebarnav">
                         @if(Auth::user()->isAdmin())
-                            <li><a href="{{ route('user') }}"><i
-                                    class="ti-control-record text-success"></i> {{ __('pages.users') }}</a></li>
-                            <li><a
-                                href="{{ route('compound') }}"><i class="ti-control-record text-success"></i> {{
-                                __('pages.compounds') }}</a></li>
+                            <li>
+                                <a href="{{ route('user') }}">
+                                    <i class="ti-control-record text-success"></i>
+                                    {{ __('pages.users') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('question') }}">
+                                    <i class="ti-control-record text-success"></i> 
+                                    الاسئلة
+                                </a>
+                            </li>
                         @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();"

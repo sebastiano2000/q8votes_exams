@@ -34,26 +34,27 @@
                                             <tr>
                                                 <th>{{ __('pages.name') }}</th>
                                                 <th>{{ __('pages.mobile') }}</th>
-                                                <th>{{ __('pages.email') }}</th>
-                                                <th>رقم المدني</th>
                                                 <th>{{ __('pages.role') }}</th>
+                                                <th>تعليق المستخدم</th>
                                                 <th class="text-end">{{ __('pages.actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($users as $user)
                                                 <tr class="record">
-                                                    <td><a href="{{ route('profile', ['user' => $user->id]) }}">{{ $user->name }}</a></td>
+                                                    <td>{{ $user->name }}</td>
                                                     <td>{{ $user->phone }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>{{ $user->national_id }}</td>
                                                     @if($user->role_id == '1')
                                                         <td>{{ __('pages.admin') }}</td>
                                                     @elseif($user->role_id == '2')
-                                                        <td>{{ __('pages.owner') }}</td>
-                                                    @elseif($user->role_id == '3')
-                                                        <td>{{ __('pages.tenant') }}</td>
+                                                        <td>المتدرب</td>
                                                     @endif
+                                                    <td>
+                                                        <label class="switch switch_user_status" style="width: 50px; height: 25px;">
+                                                            <input type="checkbox" class="user_status" @if($user->suspend) value="1" @else value="0" @endif user_id="{{ $user->id }}" name="user_suspend" style="width: 15px; height: 15px;">
+                                                            <span class="slider round" style="border-radius: 25px;"></span>
+                                                        </label>
+                                                    </td>
                                                     <td class="text-end">
                                                         <div class="actions">
                                                             <a href="#" onclick="edit_partner(this)"
@@ -61,24 +62,20 @@
                                                                 data-toggle="modal"
                                                                 data-id="{{$user->id}}"
                                                                 data-full_name="{{$user->name}}"
-                                                                data-email="{{$user->email}}"
-                                                                data-national="{{$user->national_id}}"
                                                                 data-role="{{$user->role_id}}"
                                                                 data-phone="{{$user->phone}}"
-                                                                data-image="@if($user->picture){{ asset('/users/'.$user->id.'/'.$user->picture->name) }}@endif"
-                                                                data-contract="@if($user->contract){{ asset('/users/'.$user->id.'/'.$user->contract->name) }}@endif"
                                                                 class="btn btn-sm bg-success-light"
                                                             >
                                                                 <i class="ti-pencil"></i> {{ __('pages.edit') }}  
                                                             </a>
-                                                            <a href="#" onclick="edit_password(this)"
+                                                            <!-- <a href="#" onclick="edit_password(this)"
                                                                 data-target="#edit_password"
                                                                 data-toggle="modal"
                                                                 data-id="{{$user->id}}"
                                                                 class="btn btn-sm bg-info-light"
                                                             >
                                                                 <i class="ti-pencil"></i> تعديل كلمة السر 
-                                                            </a>
+                                                            </a> -->
                                                             @if($user->role_id != '1') 
                                                                 <a data-bs-toggle="modal" href="#" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
                                                                     <i class="ti-trash"></i> {{ __('pages.delete') }}
@@ -134,31 +131,6 @@
                                             <x-country-phone-code></x-country-phone-code>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 mb-2 control-label">{{ __('pages.email') }}</label>
-                                        <div class="col-sm-12">
-                                            <input placeholder="{{ __('pages.email') }}" type="phone" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 mb-2 control-label">رقم المدني</label>
-                                        <div class="col-sm-12">
-                                            <input class="form-control" type="text" id="national_id" name="national_id" value="" placeholder="رقم القومي">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 mb-2 control-label">{{ __('pages.role') }}</label>
-                                        <div class="col-sm-12">
-                                            <select placeholder="{{ __('pages.role') }}" id="role_id" type="phone" class="form-control @error('role') is-invalid @enderror" name="role_id">
-                                                <option class="form-control" value="2">{{ __('pages.owner') }}</option>
-                                                <option class="form-control" value="3">{{ __('pages.tenant') }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div id="image">
-                                    </div>
-                                    <div id="contract">
-                                    </div>
                                     <div class="col-sm-offset-2 col-sm-12 text-center">
                                         <button type="submit" class="btn btn-primary" id="saveBtn" value="create">{{ __('pages.save') }}
                                         </button>
@@ -168,7 +140,7 @@
                         </div>
                     </div> 
                 </div>
-                <div id="edit_password" class="modal fade">   
+                <!-- <div id="edit_password" class="modal fade">   
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -201,7 +173,7 @@
                             </div>
                         </div>
                     </div> 
-                </div>
+                </div> -->
             </div>
         <!-- /Page Wrapper -->
     </div>
@@ -210,65 +182,71 @@
 
 @section('js')
 <script>
-    $('.copyval').on('click',function(e){
-       let x=$(this).attr('value');
-       e.preventDefault();
-       document.addEventListener('copy', function(e) {
-          e.clipboardData.setData('text/plain', x);
-          e.preventDefault();
-       }, true);
-       document.execCommand('copy');  
-    });
-
     function edit_partner(el) {
         var link = $(el);
         var modal = $("#edit_partner");
         var full_name = link.data('full_name');
         var id = link.data('id');
-        var email = link.data('email');
-        var role = link.data('role');
         var phone = link.data('phone');
-        var national = link.data('national');
-        var image = link.data('image');
-        var contract = link.data('contract');
     
         modal.find('#full_name').val(full_name);
         modal.find('#id').val(id);
-        modal.find('#email').val(email);
         modal.find('#phone').val(phone);
-        modal.find('#role_id').val(role);
-        modal.find('#national_id').val(national);
-    
-        $("#image").children().remove();
-        $("#image").append(`
-            <div class="form-group">
-                <input type="file" class="dropify" src="" data-default-file="${image}" name="picture"/>
-                <p class="error error_picture"></p>
-            </div>
-        `);
-        
-        $("#contract").children().remove();
-        $("#contract").append(`
-            <div class="form-group">
-                <input type="file" class="dropify" src="" data-default-file="${contract}" name="contract"/>
-                <p class="error error_contract"></p>
-            </div>
-        `);
-        
-        $('.dropify').dropify();
     }
 
-    function edit_password(el) {
-        var link = $(el);
-        var modal = $("#edit_password");
-        var password = link.data('password');
-        var id = link.data('id');
-        var confirm_password = link.data('confirm_password');
+    $(".user_status").on("change", function(){   
+        if ($(this).is(":checked"))
+        {
+            $(this).val(0);
+        }   
+        else {
+            $(this).val(1);
+        }
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            url: '{{ route("user.status") }}',
+            method: 'post',
+            data: {id: $(this).attr("user_id"), suspend: $(this).val()},
+            success: () => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: "{{ __('pages.sucessdata') }}"
+                });
+            }
+        });
+    });
     
-        modal.find('#password').val(password);
-        modal.find('#id').val(id);
-        modal.find('#confirm_password').val(confirm_password);
-    }
+    $(document).ready(function(){
+        for(let status of $('.user_status')){
+            if (status.value == 0)
+            {
+                status.checked = true;
+            } 
+            else{
+                status.checked = false;
+            }
+        }
+    });
+
+    // function edit_password(el) {
+    //     var link = $(el);
+    //     var modal = $("#edit_password");
+    //     var password = link.data('password');
+    //     var id = link.data('id');
+    //     var confirm_password = link.data('confirm_password');
+    
+    //     modal.find('#password').val(password);
+    //     modal.find('#id').val(id);
+    //     modal.find('#confirm_password').val(confirm_password);
+    // }
 </script>
 
 @endsection

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CompoundController;
+use App\Http\Controllers\UserResultController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\BuildingController;
 use App\Http\Controllers\QuestionController;
@@ -27,6 +27,10 @@ Route::group(['prefix' => '/'],function(){
 Route::group(['prefix' => 'exam'],function(){
     Route::get('/', [QuestionController::class, "exam"])->name('exam');
     Route::get('/test', [QuestionController::class, "test"])->name('exam.test');
+});
+
+Route::group(['prefix' => 'user_result'],function(){
+    Route::post('/insert/result', [UserResultController::class, "enterResult"])->name('save.data');
 });
 
 Route::group(['prefix' => 'user'],function(){

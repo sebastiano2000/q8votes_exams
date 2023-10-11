@@ -44,7 +44,7 @@
                                                         <div class="col-md-6">
                                                             <label class="mb-2">الاجابة {{ $key + 1 }} @if($answer->status) (الصحيحة) @endif</label>
                                                             <input class="form-control" type="text" name="title[{{$key}}]" placeholder="{{ __('pages.name') }}" value="@isset($answer->id){{$answer->title}}@endisset">
-                                                            <p class="error error_user_id"></p>
+                                                            <p class="error error_title_{{$key}}"></p>
                                                         </div>
                                                     @endforeach
                                                 @else
@@ -61,7 +61,7 @@
                                                         <div class="col-md-6">
                                                             <label class="mb-2">الاجابة {{ $position + 1 }} @if($random == $position) (الصحيحة) @endif</label>
                                                             <input class="form-control" type="text" name="title[{{$position}}]" placeholder="{{ __('pages.name') }}" value="@isset($question->id){{$question->title}}@endisset">
-                                                            <p class="error error_user_id"></p>
+                                                            <p class="error error_title_{{$position}}"></p>
                                                         </div>
                                                     @endforeach
                                                 @endif

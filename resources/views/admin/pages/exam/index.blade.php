@@ -12,7 +12,7 @@
           <form>
               <div class="quiz-options">
                     @foreach($slice->first()->answers as $key => $answer)
-                        <input type="radio" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->first()->id}}" required>
+                        <input type="radio" question_id="{{$slice->first()->id}}" answer_id="{{$answer->id}}" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->first()->id}}" required>
                         <label class="radio-label" for="one-{{$key + 1}}">
                             <span class="alphabet">
                                 @if($key == 0)
@@ -69,7 +69,27 @@
             number = $(this).attr('number').split('one-')[1] - 1 + 4;
         }
 
-        $(this).siblings().eq(number).addClass('active')
+        $(this).siblings().eq(number).addClass('active');
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            url: '{{ route("save.data") }}',
+            method: 'post',
+            data: {question_id: $(this).attr("question_id"), answer_id: $(this).attr('answer_id')},
+            success: () => {
+                // Swal.fire({
+                //     toast: true,
+                //     position: 'top-end',
+                //     showConfirmButton: false,
+                //     timer: 3000,
+                //     timerProgressBar: true,
+                //     icon: 'success',
+                //     title: "{{ __('pages.sucessdata') }}"
+                // });
+            }
+        });
     });
 </script>
 

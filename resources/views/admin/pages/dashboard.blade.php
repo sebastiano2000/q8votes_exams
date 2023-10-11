@@ -11,7 +11,7 @@
                                     <div class="wrapper-tenant">
                                         <h1> الاختبار تجريبي</h1>
                                         <div class="button-wrapper">
-                                            <a href="{{ route('exam') }}" class="btn-tenant fill-tenant">الاختبار</a>
+                                            <a href="{{ route('exam.test') }}" class="btn-tenant fill-tenant">الاختبار</a>
                                         </div>
                                     </div>
                                 </div>
@@ -21,7 +21,7 @@
                                     <div class="wrapper-tenant">
                                         <h1>الاختبار الرئيسي</h1>
                                         <div class="button-wrapper">
-                                            <a href="{{ route('exam.test') }}" class="btn-tenant fill-tenant">الاختبار</a>
+                                            <a href="{{ route('exam') }}" class="btn-tenant fill-tenant">الاختبار</a>
                                         </div>
                                     </div>
                                 </div>

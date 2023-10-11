@@ -22,7 +22,6 @@ class Question extends Model
 
     static function upsertInstance($request)
     {
-        // dd($request);
         $question = Question::updateOrCreate(
             [
                 'id' => $request->id ?? null

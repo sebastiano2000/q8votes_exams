@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->isSuperAdmin())
+        if(Auth::user()->isAdmin())
             return view('admin.pages.user.index',[
                 'users' => User::filter($request->all())->paginate(50),
             ]);
@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function upsert(User $user)
     {
-        if(Auth::user()->isSuperAdmin())
+        if(Auth::user()->isAdmin())
             return view('admin.pages.user.upsert',[
                 'user' => $user,
             ]);

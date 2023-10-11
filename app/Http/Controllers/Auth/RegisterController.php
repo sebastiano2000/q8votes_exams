@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -42,32 +43,48 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(UserRequest $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $request->session()->put(
+            'user',
+            [
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'password' => $request->password,
+            ]
+        );
+
+        return redirect()->route('register.verification');
+    }
+
+    public function verification()
+    {
+        $user = session()->get('user');
+        return view(
+            'auth.verification',
+            [
+                'user' => $user,
+            ]
+        );
+    }
+
+    public function store(Request $request)
+    {
+        $user = session()->get('user');
+
+        $user = User::create([
+            'name' => $user['name'],
+            'phone' => $user['phone'],
+            'password' => Hash::make($user['password']),
         ]);
+
+        auth()->login($user);
+
+        return redirect()->route('home');
     }
 }

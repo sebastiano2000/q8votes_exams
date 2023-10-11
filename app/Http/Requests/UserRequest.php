@@ -27,29 +27,22 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'phone' => ['required',function($attribute,$value,$fail){
+            'phone' => ['required', function ($attribute, $value, $fail) {
                 $count = User::where('phone', $value)->where('id', '!=', request()->id)->count();
 
-                if ( $count > 0 ) {
+                if ($count > 0) {
                     return $fail('رقم الهاتف مسجل لدينا بالفعل');
                 }
             }],
-            'email' => ['required',function($attribute,$value,$fail){
-                $count = User::where('email', $value)->where('id', '!=', request()->id)->count();
-
-                if ( $count > 0 ) {
-                    return $fail('لبريد الالكتروني مسجل لدينا بالفعل');
-                }
-            }],
-            'password' => ['confirmed', function($attribute,$value,$fail){
-                if ( request()->id) {
+            'password' => ['confirmed', function ($attribute, $value, $fail) {
+                if (request()->id) {
                     return $fail('يجب عليك إدخال  كلمة السر');
                 }
             }],
         ];
     }
 
-    public function messages():array
+    public function messages(): array
     {
         return [
             'name.required' => 'يجب عليك إدخال الاسم',

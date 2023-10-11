@@ -56,6 +56,7 @@ class RegisterController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'password' => $request->password,
+                'country_code' => $request->countryCode,
             ]
         );
 
@@ -87,7 +88,7 @@ class RegisterController extends Controller
     public function store()
     {
         $user = session()->get('user');
-        
+
         $user = User::create([
             'name' => $user['name'],
             'phone' => $user['phone'],

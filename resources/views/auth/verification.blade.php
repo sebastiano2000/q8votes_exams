@@ -16,12 +16,13 @@
                                 <h4>
                                     أرسل رمز التحقق الي
                                     <strong>
-                                        {{$user['phone'] ?? "55"}}
+                                        {{'+'. $user['country_code'] . " " . $user['phone']}}
                                     </strong>
                                 </h4>
                                 <div class="alert alert-success" id="successAuth" style="display: none;"></div>
                                 <form>
-                                    <input id="number" type="hidden" value="{{$user['phone'] ?? " 55"}}">
+                                    <input id="number" type="hidden"
+                                        value="{{'+'. $user['country_code'] . $user['phone']}}">
                                     <div id="recaptcha-container" class="d-flex justify-content-center mt-3"></div>
                                     <button id="send-button" type="button" class="btn btn-primary mt-3"
                                         onclick="sendOTP();">
@@ -38,7 +39,7 @@
                                     تم إرسال رمز التحقق إلى رقم الهاتف المحمول الخاص بك
                                     <br />
                                     <strong>
-                                        {{-- {{$user['phone']}} --}}
+                                        {{'+'. $user['country_code'] . " " . $user['phone']}}
                                     </strong>
                                 </p>
                                 <div class="alert alert-success" id="successOtpAuth" style="display: none;"></div>

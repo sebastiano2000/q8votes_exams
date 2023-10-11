@@ -11,7 +11,7 @@
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                                     تسجيل حساب جديد
                                 </p>
-                                <form method="POST" action="{{ route('register.create')}}">
+                                <form method="POST" action="{{ route('register.create')}}" onsubmit="validate()">
                                     @csrf
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <div class="form-outline flex-fill mb-0">
@@ -25,11 +25,14 @@
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="email">
+                                            <label class="form-label" for="phone">
                                                 {{__('pages.Phone')}}
                                             </label>
-                                            <input id="phone" type="phone" class="form-control" name="phone"
-                                                value="{{ old('phone') }}" required autocomplete="phone">
+                                            <div class="input-group">
+                                                <x-country-phone-code></x-country-phone-code>
+                                                <input id="phone" type="phone" class="form-control mr-2" name="phone"
+                                                    value="{{ old('phone') }}" required autocomplete="phone">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -83,6 +86,30 @@
 @section('js')
 
 <script>
+    function validate() {
+    var phone = document.getElementById("phone").value;
+    var password = document.getElementById("password").value;
+    var password_confirmation = document.getElementById("password-confirm").value;
+    var name = document.getElementById("name").value;
+
+    if (phone == "" || password == "" || password_confirmation == "" || name == "") {
+        event.preventDefault();
+        alert("يجب ملئ جميع الحقول");
+    }
+
+    if (password != password_confirmation) {
+        event.preventDefault();
+        alert("كلمة المرور غير متطابقة");
+    }
+
+    if (isNaN(phone)) {
+        event.preventDefault();
+        alert("رقم الهاتف يجب أن يكون أرقام فقط");
+    }
+
+}
+
+
 </script>
 
 @endsection

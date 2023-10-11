@@ -17,8 +17,11 @@ class Question extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'building_id',
-        'user_id'
+        'title',
     ];
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 }

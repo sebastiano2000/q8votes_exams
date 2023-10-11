@@ -54,8 +54,6 @@ class User extends Authenticatable
     {
         if (isset($request['name'])) {
             $query->where('name', 'like', '%' . $request['name'] . '%')
-                ->orWhere('national_id', 'like', '%' . $request['name'] . '%')
-                ->orWhere('email', 'like', '%' . $request['name'] . '%')
                 ->orWhere('phone', 'like', '%' . $request['name'] . '%');
         }
 
@@ -63,13 +61,13 @@ class User extends Authenticatable
     }
 
     //Roles
-    public function isSuperAdmin()
+    public function isAdmin()
     {
-        return Auth::user()->role_id == SUPERADMIN;
+        return Auth::user()->role_id == ADMIN;
     }
 
-    public function isOwner()
+    public function deleteInstance()
     {
-        return Auth::user()->role_id == OWNER;
+        return $this->delete();
     }
 }

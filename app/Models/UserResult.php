@@ -15,8 +15,9 @@ class UserResult extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'building_id',
-        'user_id'
+        'user_id',
+        'question_id',
+        'answer_id',
+        'result'
     ];
 }

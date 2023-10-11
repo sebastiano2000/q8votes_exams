@@ -80,42 +80,26 @@
             </nav>
         </header>
         <aside class="left-sidebar">
-            @if(Auth::user())
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <div class="p-2 text-center" style="font-size: 22px; font-weight: bold;">{{ Auth::user()->name }}
                     </div>
                     <ul id="sidebarnav">
-                        <li><a href="{{ route('profile') }}"><i class="ti-control-record text-success"></i>الملف
-                                الشخصي</a></li>
-                        @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('user') }}"><i
-                                    class="ti-control-record text-success"></i> {{ __('pages.users') }}</a></li>@endif
-                        @if(Auth::user()->isSuperAdmin() || Auth::user()->role_id == 2)<li><a
+                        @if(Auth::user()->isAdmin())
+                            <li><a href="{{ route('user') }}"><i
+                                    class="ti-control-record text-success"></i> {{ __('pages.users') }}</a></li>
+                            <li><a
                                 href="{{ route('compound') }}"><i class="ti-control-record text-success"></i> {{
-                                __('pages.compounds') }}</a></li>@endif
-                        @if(Auth::user()->isSuperAdmin() || Auth::user()->role_id == 2)<li><a
-                                href="{{ route('building') }}"><i class="ti-control-record text-success"></i> {{
-                                __('pages.buildings') }}</a></li>@endif
-                        @if(Auth::user()->isSuperAdmin() || Auth::user()->role_id == 2)<li><a
-                                href="{{ route('maintenance') }}"><i class="ti-control-record text-success"></i> {{
-                                __('pages.maintenances') }}</a></li>@endif
-                        {{-- pay rent --}}
-                        @if(Auth::user()->role_id == 3)<li><a href="{{ route('home') }}"><i
-                                    class="ti-control-record text-success"></i> {{
-                                __('pages.pay_rent') }}</a></li>@endif
-
-                        <li><a href="{{ route('financial_transaction') }}"><i
-                                    class="ti-control-record text-success"></i> {{__('pages.financial_transactions') }}
-                            </a></li>
+                                __('pages.compounds') }}</a></li>
+                        @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                                aria-expanded="false"><i class="ti-control-record text-success"></i><span>{{
-                                    __('pages.Logout') }}</span></a></li>
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                            aria-expanded="false"><i class="ti-control-record text-success"></i><span>{{
+                                __('pages.Logout') }}</span></a></li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">@csrf</form>
                     </ul>
                 </nav>
             </div>
-            @endif
         </aside>
         <div class="page-wrapper">
             <div class="container-fluid">

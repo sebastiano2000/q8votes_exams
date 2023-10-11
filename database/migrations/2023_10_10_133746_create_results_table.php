@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('score');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

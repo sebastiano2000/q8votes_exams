@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompoundController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\BuildingController;
-use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\AppartmentPDFController;
 use App\Http\Controllers\FinancialTrasanctionController;
@@ -27,6 +27,18 @@ use App\Http\Controllers\ProfileController;
 Route::group(['prefix' => '/'],function(){
     Route::get('/', [AdminController::class,"dashboard"])->name('home');
     Route::post('/data', [AdminController::class,"getData"])->name('data');
+});
+
+Route::group(['prefix' => 'exam'],function(){
+    Route::get('/', [QuestionController::class, "exam"])->name('exam');
+    Route::get('/test', [QuestionController::class, "test"])->name('exam.test');
+    // Route::post('/building', [MaintenanceController::class, 'building'])->name('maintenance.building');
+    // Route::post('api/fetch-minor', [MaintenanceController::class, 'fetchMainor'])->name('maintenance.fetch');
+    // Route::get('/upsert/{maintenance?}',[MaintenanceController::class,'upsert'])->name('maintenance.upsert');
+    // Route::get('/add/{user}/{compound}/{building}/{apartment}',[MaintenanceController::class,'add'])->name('maintenance.add');
+    // Route::get('/filter',[MaintenanceController::class,'filter'])->name('maintenance.filter');
+    // Route::post('/modify',[MaintenanceController::class,'modify'])->name('maintenance.modify');
+    // Route::post('/delete/{maintenance}',[MaintenanceController::class,'destroy'])->name('maintenance.delete');
 });
 
 Route::group(['prefix' => '/payment'],function(){
@@ -81,17 +93,6 @@ Route::group(['prefix' => 'building'],function(){
     Route::get('/pdf-buildings',[AppartmentPDFController::class,'indexBuildings'])->name('building.buildings-pdf');
 });
 
-Route::group(['prefix' => 'maintenance'],function(){
-    Route::get('/', [MaintenanceController::class,"index"])->name('maintenance');
-    Route::post('/building', [MaintenanceController::class, 'building'])->name('maintenance.building');
-    Route::post('api/fetch-minor', [MaintenanceController::class, 'fetchMainor'])->name('maintenance.fetch');
-    Route::get('/upsert/{maintenance?}',[MaintenanceController::class,'upsert'])->name('maintenance.upsert');
-    Route::get('/add/{user}/{compound}/{building}/{apartment}',[MaintenanceController::class,'add'])->name('maintenance.add');
-    Route::get('/filter',[MaintenanceController::class,'filter'])->name('maintenance.filter');
-    Route::post('/modify',[MaintenanceController::class,'modify'])->name('maintenance.modify');
-    Route::post('/delete/{maintenance}',[MaintenanceController::class,'destroy'])->name('maintenance.delete');
-});
-
 Route::group(['prefix' => 'apartment'],function(){
     Route::get('/', [ApartmentController::class,"index"])->name('apartment');
     Route::post('api/fetch-minor', [ApartmentController::class, 'fetchMainor'])->name('apartment.fetch');
@@ -100,17 +101,6 @@ Route::group(['prefix' => 'apartment'],function(){
     Route::post('/apartments', [ApartmentController::class, 'apartments'])->name('apartments');
     Route::post('/modify',[ApartmentController::class,'modify'])->name('apartment.modify');
     Route::post('/delete/{apartment}',[ApartmentController::class,'destroy'])->name('apartment.delete');
-});
-
-Route::group(['prefix' => 'financial_transaction'],function(){
-    Route::get('/', [FinancialTrasanctionController::class, "index"])->name('financial_transaction');
-    Route::get('/filter', [FinancialTrasanctionController::class, 'filter'])->name('financial_transaction.filter');
-    Route::get('/pdf-financial',[FinancialTrasanctionPDFController::class, 'index'])->name('financial_transaction.financial-pdf');
-    // Route::get('/show/{id}',[FinancialTrasanctionController::class,'show'])->name('financial_transaction-pdf');
-    Route::get('/show/{id}',[FinancialTrasanctionPDFController::class,'show'])->name('financial_transaction-pdf');
-    Route::post('/delete/{financial_transaction}',[FinancialTrasanctionController::class,'destroy'])->name('financial_transaction.delete');
-    Route::get('/export_transactions',[FinancialTrasanctionController::class, 'exportTransactions'])->name('export-transactions');
-
 });
 
 Route::group(['prefix' => 'profile'],function(){

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('css')
 <link href="{{ asset('admin_assets\assets\css\fileupload.css') }}" rel="stylesheet" />
 @endsection
@@ -24,7 +23,8 @@
                                 <form>
                                     <input id="number" type="hidden" value="{{$user['phone'] ?? " 55"}}">
                                     <div id="recaptcha-container" class="d-flex justify-content-center mt-3"></div>
-                                    <button type="button" class="btn btn-primary mt-3" onclick="sendOTP();">
+                                    <button id="send-button" type="button" class="btn btn-primary mt-3"
+                                        onclick="sendOTP();">
                                         إرسال
                                     </button>
                                 </form>
@@ -43,6 +43,7 @@
                                 </p>
                                 <div class="alert alert-success" id="successOtpAuth" style="display: none;"></div>
                                 <form>
+                                    @csrf
                                     <div class="otp-field otp_form mb-4">
                                         <input type="number" class="input_1 form-control input_otp mx-2 text-center"
                                             index="1" min="0" max="9" step="1">
@@ -75,13 +76,6 @@
 @section('js')
 <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
 <script type="module">
-    // Import the functions you need from the SDKs you need
-
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
       apiKey: "AIzaSyCVKO1FrbDLb8UTONEhXriEkyREhRcQzVc",
       authDomain: "test-44dcb.firebaseapp.com",
@@ -131,10 +125,13 @@
     function sendOTP() {
         var number = $("#number").val();
 
-        if (firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier)) {
-            $("#error").text(`
-                يرجى اكمال عمليه التحقق.
-            `);
+        $("#error").hide();
+        if (window.recaptchaVerifier.g.getResponse() == 0) {
+            $("#error").text(
+                `
+                يرجى التحقق من أنك لست روبوتًا
+                `
+            );
             $("#error").show();
             return;
         }
@@ -142,33 +139,45 @@
         firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then(function (confirmationResult) {
             window.confirmationResult = confirmationResult;
             coderesult = confirmationResult;
-            console.log(coderesult);
             $("#successAuth").text("Message sent");
             $("#successAuth").show();
             $("#send-otp").addClass("d-none");
             $("#verifiy-otp").removeClass("d-none");
         }).catch(function (error) {
-            console.log(window.recaptchaVerifier);
-
             $("#error").text(error.message);
             $("#error").show();
         });
     }
 
-
-
     function verify() {
-        var code = $("#verification").val();
+        var code = $(".input_1").val() + $(".input_2").val() + $(".input_3").val() + $(".input_4").val() + $(".input_5").val() + $(".input_6").val();
         coderesult.confirm(code).then(function (result) {
             var user = result.user;
-            console.log(user);
             $("#successOtpAuth").text("Auth is successful");
             $("#successOtpAuth").show();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': "application/json"
+                },
+                url: '{{ route("register.store") }}',
+                method: 'POST',
+                success: function (data) {
+                    window.location.href = "{{ route('register.success') }}";
+                },
+                error: function (error) {
+                    $("#error").text(error.responseJSON.message);
+                    $("#error").show();
+                }
+            });
+
         }).catch(function (error) {
             $("#error").text(error.message);
             $("#error").show();
         });
     }
+
 </script>
 
 @endsection

@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,12 +22,11 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'register'], function () {
-    Route::post('/create', [RegisterController::class, 'create'])->name('register.create');
+    Route::post('/data', [RegisterController::class, 'create'])->name('register.create');
     Route::get('/verification', [RegisterController::class, 'verification'])->name('register.verification');
-    Route::get('/success', [RegisterController::class, 'success'])->name('register.success');
-    // Route::post('/save/verification', [RegisterController::class, 'verification'])->name('verification.save');
-    // Route::get('/verify/verification', [RegisterController::class, 'verificationCheck'])->name('verification.check');
-    // Route::get('/register-success', [RegisterController::class, 'registersucess'])->name('register.success.information');
+    Route::post('/store', [RegisterController::class, 'store'])->name('register.store');
+    Route::get('/success',[RegisterController::class,'success'])->name('register.success');
+
 });
 
 

@@ -8,7 +8,6 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -48,6 +47,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+
     protected function create(UserRequest $request)
     {
         $request->session()->put(
@@ -73,18 +73,27 @@ class RegisterController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function success()
     {
         $user = session()->get('user');
+        return view(
+            'auth.success',
+            [
+                'user' => $user
+            ]
+        );
+    }
 
+    public function store()
+    {
+        $user = session()->get('user');
+        
         $user = User::create([
             'name' => $user['name'],
             'phone' => $user['phone'],
             'password' => Hash::make($user['password']),
         ]);
 
-        auth()->login($user);
-
-        return redirect()->route('home');
+        return redirect()->route('register.success');
     }
 }

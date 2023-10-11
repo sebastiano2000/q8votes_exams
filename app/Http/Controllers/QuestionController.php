@@ -18,8 +18,12 @@ class QuestionController extends Controller
         $questions = Question::with('answers')->get();
         $slice = $questions->slice($offset, 1);
 
-        return view('admin.pages.exam.index')->with('slice', $slice)
-            ->with('page', $page);
+        $count = Question::count();
+        
+        return view('admin.pages.exam.index')
+            ->with('slice', $slice)
+            ->with('page', $page)
+            ->with('total', $count > 30 ? 30 : $count );
     }
 
     public function test(Request $request)
@@ -31,8 +35,12 @@ class QuestionController extends Controller
         $questions = Question::with('answers')->get();
         $slice = $questions->slice($offset, 1);
 
-        return view('admin.pages.exam.test')->with('slice', $slice)
-            ->with('page', $page);
+        $count = Question::count();
+
+        return view('admin.pages.exam.test')
+            ->with('slice', $slice)
+            ->with('page', $page)
+            ->with('total', $count);
     }
 
     public function index(Request $request)

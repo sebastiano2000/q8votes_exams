@@ -5,7 +5,7 @@
         <main class="question-main">
             <div class="text-container">
                 <h3>الاختبار</h3>
-                <p>السؤال {{ $page }} من 30</p>
+                <p>السؤال {{ $page }} من {{ $total }}</p>
                 <p>{{$slice->first()->title}}</p>
             </div>
             <form>
@@ -28,17 +28,17 @@
                         @endforeach
                 </div>
                 <div class="d-flex">
-                    @if($page < 2)
+                    @if($page < $total)
                         @if($page > 1)
                             @php
                                 $prev = $page - 1; 
                             @endphp
-                        <a id="btn" type="submit" href="exam?page={{ $prev }}">السابق</a>
+                        <a id="btn" type="submit" href="test?page={{ $prev }}">السابق</a>
                         @endif
                         @php
                             $pageno = $page + 1; 
                         @endphp
-                        <a id="btn" type="submit" href="exam?page={{ $pageno }}">التالي</a>
+                        <a id="btn" type="submit" href="test?page={{ $pageno }}">التالي</a>
                     @else
                         <a id="btn" type="submit" href="#">انهاء الاختبار</a>
                     @endif

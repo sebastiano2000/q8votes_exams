@@ -6,7 +6,7 @@
     <main class="question-main">
           <div class="text-container">
               <h3>الاختبار</h3>
-              <p>السؤال {{ $page }} من 30</p>
+              <p>السؤال {{ $page }} من {{ $total }}</p>
               <p>{{$slice->first()->title}}</p>
           </div>
           <form>
@@ -29,7 +29,7 @@
                     @endforeach
               </div>
               <div class="d-flex">
-                @if($page < 2)
+                @if($page < $total)
                     @if($page > 1)
                         @php
                             $prev = $page - 1; 

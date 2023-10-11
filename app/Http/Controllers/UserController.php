@@ -45,6 +45,10 @@ class UserController extends Controller
         return view('auth.password-reset-user');
     }
 
+    public function status(Request $request)
+    {
+        return User::statusUpdate($request);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -62,10 +66,6 @@ class UserController extends Controller
         return User::upsertInstance($request);
     }
 
-    public function modifyPassword(UserRequest2 $request)
-    {
-        return User::modifyPassword($request);
-    }
     /**
      * Display the specified resource.
      *
@@ -77,40 +77,6 @@ class UserController extends Controller
         //
     }
 
-    public function users(Request $request)
-    {
-        return User::userSelect($request);
-    }
-
-    public function usersTenant(Request $request)
-    {
-        return User::usersTenant($request);
-    }
-    
-    public function payment(Request $request)
-    {
-        return User::payment($request);
-    }
-
-    public function paymentCash(Request $request)
-    {
-        return User::paymentCash($request);
-    }
-    
-    public function save(Request $request)
-    {
-        return User::saveData($request);
-    }
-    
-    public function paymentSucess(Request $request)
-    {
-        return view('admin.pages.paymentSuccess');
-    }
-    
-    public function paymentFailure(Request $request)
-    {
-        return view('admin.pages.paymentFailure');
-    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -34,11 +34,6 @@
                                                     <p class="error error_name"></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="mb-2">{{ __('pages.email') }}</label>
-                                                    <input class="form-control text-start" type="email" name="email" value="@isset($user->id){{$user->email}}@endisset" placeholder="{{ __('pages.email') }}" >
-                                                    <p class="error error_email"></p>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <label class="mb-2">{{ __('pages.Phone') }}</label>
                                                     <div class="row">
                                                         <div class="col-md-9">
@@ -53,21 +48,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label class="mb-2">{{ __('pages.role') }}</label>
-                                                    <div class="form-group">
-                                                        <select placeholder="{{ __('pages.role') }}" type="phone" class="form-control @error('role') is-invalid @enderror" name="role_id">
-                                                            <option class="form-control" selected value="2">{{ __('pages.owner') }}</option>
-                                                            <option class="form-control" value="3">{{ __('pages.tenant') }}</option>
-                                                        </select>
-                                                        <p class="error error_role"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label class="mb-2">رقم المدني</label>
-                                                    <input class="form-control text-start" type="text" name="national_id" value="@isset($user->id){{$user->national_id}}@endisset" placeholder="رقم المدني">
-                                                    <p class="error error_national_id"></p>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <label class="mb-2">كلمة السر</label>
                                                     <input class="form-control text-start" type="text" name="password" value="@isset($user->id){{$user->password}}@endisset" placeholder="كلمة السر" >
                                                     <p class="error error_password"></p>
@@ -76,16 +56,6 @@
                                                     <label class="mb-2">تاكيد كلمة السر</label>
                                                     <input class="form-control text-start" type="text" name="password_confirmation" value="@isset($user->id){{$user->password}}@endisset" placeholder="كلمة السر" >
                                                     <p class="error error"></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="mb-2">صورة البطاقة المدنية</label>
-                                                    <input type="file" class="dropify" user_id="{{Auth::user()->id}}" data-default-file="@if($user->id){{ asset('/users/'.$user->id.'/'.$user->picture->name) }}@endif" name="picture"/>
-                                                    <p class="error error_picture"></p>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="mb-2">صورة عقد الزواج</label>
-                                                    <input type="file" class="dropify" user_id="{{Auth::user()->id}}" data-default-file="@if($user->id){{ asset('/users/'.$user->id.'/'.$user->contract->name) }}@endif" name="contract"/>
-                                                    <p class="error error_contract"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,6 +79,5 @@
 @endsection
 @section('js')
 <script>
-    $('.dropify').dropify();
 </script>
 @endsection

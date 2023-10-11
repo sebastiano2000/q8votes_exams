@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,4 +21,24 @@ class UserResult extends Model
         'answer_id',
         'result'
     ];
+
+    static function enterResult($request)
+    {
+        $answer = Answer::where('id', $request->answer_id)->first();
+
+        $user_result = UserResult::updateOrCreate(
+            [
+                'question_id' => $request->question_id,
+                'user_id' => Auth::user()->id,
+            ],
+            [
+                'question_id' => $request->question_id,
+                'user_id' => Auth::user()->id,
+                'answer_id' => $request->answer_id,
+                'result' => $answer->status,
+            ]
+        );
+
+        return true;
+    }
 }

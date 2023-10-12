@@ -45,9 +45,9 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ route('home') }}">
                         <b>
-                            <img src="{{ asset('admin_assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo"
+                            <img src="{{ asset('admin_assets/images/favicon.jpeg') }}" alt="homepage" class="dark-logo"
                                 style="max-height: 50px" />
-                            <img src="{{ asset('admin_assets/images/logo-light-icon.png') }}" alt="homepage"
+                            <img src="{{ asset('admin_assets/images/favicon.jpeg') }}" alt="homepage"
                                 class="light-logo" style="max-height: 50px" />
                         </b>
                         <span>

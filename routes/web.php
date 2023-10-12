@@ -33,16 +33,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Auth::routes();
 
 Route::group(['prefix' => 'forget-password'], function () {
     Route::get('/', [ResetPasswordController::class, 'index'])->name('forget-password.reset');
-    Route::post('/data', [ResetPasswordController::class, 'create'])->name('forget-password.reset');
-    Route::get('/verification', [ResetPasswordController::class, 'verification'])->name('forget-password.verification');
     Route::post('/check', [ResetPasswordController::class, 'check'])->name('forget-password.check');
-    Route::post('/send', [ResetPasswordController::class, 'send'])->name('forget-password.send');
+
+    Route::post('/change-password', [ResetPasswordController::class, 'changePassword'])->name('forget-password.change-password');
+    Route::get('/change-password/{phone}', [ResetPasswordController::class, 'changeForm'])->name('forget-password.change-password.form');
+
+    Route::post('/store', [ResetPasswordController::class, 'store'])->name('forget-password.change-password.store');
+    Route::get('/success', [ResetPasswordController::class, 'success'])->name('forget-password.success');
 });
 
-Auth::routes();
 
 Route::get('/', function () {
     if (Auth::check()) {

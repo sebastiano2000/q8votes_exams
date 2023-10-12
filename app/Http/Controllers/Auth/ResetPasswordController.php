@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\Auth\CheckRequest;
+use App\Http\Requests\Auth\PasswordRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordController extends Controller
 {
@@ -36,7 +38,8 @@ class ResetPasswordController extends Controller
         return view('auth.passwords.forget-password');
     }
 
-    public function check(Request $request){
+    public function check(Request $request)
+    {
         $user = User::where('phone', $request->phone)->first();
         if ($user) {
             return view(
@@ -47,5 +50,29 @@ class ResetPasswordController extends Controller
                 ]
             );
         }
+    }
+
+    public function changePassword(CheckRequest $request)
+    {
+        return true;
+    }
+
+    public function changeForm($request)
+    {
+        return view('auth.passwords.change-password', [
+            'phone' => $request,
+        ]);
+    }
+
+    public function store(PasswordRequest $request)
+    {
+        User::where('phone', $request->phone)->update(['password' => Hash::make($request->password)]);
+
+        return view('auth.passwords.success');
+    }
+
+    public function success()
+    {
+        return view('auth.passwords.success');
     }
 }

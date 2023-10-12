@@ -12,8 +12,8 @@
     <!--<meta http-equiv='cache-control' content='no-cache'>-->
     <!--<meta http-equiv='expires' content='0'>-->
     <!--<meta http-equiv='pragma' content='no-cache'>-->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin_assets/images/favicon.png') }}">
-    <title>Real Estate</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin_assets/images/favicon.jpeg') }}">
+    <title>Q8votes</title>
     <!-- chartist CSS -->
     <link href="{{ asset('admin_assets/node_modules/morrisjs/morris.css') }}" rel="stylesheet">
     <!--Toaster Popup message CSS -->
@@ -36,7 +36,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">Real Estate</p>
+            <p class="loader__label">Q8votes</p>
         </div>
     </div>
     <div id="main-wrapper">
@@ -51,31 +51,31 @@
                                 class="light-logo" style="max-height: 50px" />
                         </b>
                         <span>
-                            <img src="{{ asset('admin_assets/images/logo-text.png') }}" alt="homepage"
+                            <img src="{{ asset('admin_assets/images/logoq.png') }}" alt="homepage"
                                 class="dark-logo me-2" style="max-height: 50px" />
-                            <img src="{{ asset('admin_assets/images/logo-light-text.png') }}" class="light-logo me-2"
+                            <img src="{{ asset('admin_assets/images/logoq.png') }}" class="light-logo me-2"
                                 alt="homepage" style="max-height: 50px""/>
                         </span>
                     </a>
                 </div>
                 <div class=" navbar-collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a
-                                class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                        <li class="nav-item"><a
-                                class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="icon-menu"></i></a></li>
-                        <li class="nav-item">
-                            <form class="app-search d-none d-md-block d-lg-block">
-                                <input type="text" class="form-control" placeholder="Search & enter">
-                            </form>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light"
-                                href="javascript:void(0)"><i class="ti-settings"></i></a></li>
-                    </ul>
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item"><a
+                                        class="nav-link nav-toggler d-block d-md-none waves-effect waves-dark"
+                                        href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+                                <li class="nav-item"><a
+                                        class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark"
+                                        href="javascript:void(0)"><i class="icon-menu"></i></a></li>
+                                <li class="nav-item">
+                                    <form class="app-search d-none d-md-block d-lg-block">
+                                        <input type="text" class="form-control" placeholder="Search & enter">
+                                    </form>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav my-lg-0">
+                                <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light"
+                                        href="javascript:void(0)"><i class="ti-settings"></i></a></li>
+                            </ul>
                 </div>
             </nav>
         </header>
@@ -83,27 +83,27 @@
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <div class="p-2 text-center" style="font-size: 22px; font-weight: bold;">
-                    {{ Auth::user()->name }}
+                        {{ Auth::user()->name }}
                     </div>
                     <ul id="sidebarnav">
                         @if(Auth::user()->isAdmin())
-                            <li>
-                                <a href="{{ route('user') }}">
-                                    <i class="ti-control-record text-success"></i>
-                                    {{ __('pages.users') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('question') }}">
-                                    <i class="ti-control-record text-success"></i> 
-                                    الاسئلة
-                                </a>
-                            </li>
+                        <li>
+                            <a href="{{ route('user') }}">
+                                <i class="ti-control-record text-success"></i>
+                                {{ __('pages.users') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('question') }}">
+                                <i class="ti-control-record text-success"></i>
+                                الاسئلة
+                            </a>
+                        </li>
                         @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                            aria-expanded="false"><i class="ti-control-record text-success"></i><span>{{
-                                __('pages.Logout') }}</span></a></li>
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                aria-expanded="false"><i class="ti-control-record text-success"></i><span>{{
+                                    __('pages.Logout') }}</span></a></li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">@csrf</form>
                     </ul>
                 </nav>

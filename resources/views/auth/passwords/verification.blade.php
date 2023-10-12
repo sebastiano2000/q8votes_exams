@@ -16,13 +16,12 @@
                                 <h4>
                                     أرسل رمز التحقق الي
                                     <strong>
-                                        {{'+'. $user['country_code'] . " " . $user['phone']}}
+                                        {{'+'. $country_code . " " . $user['phone']}}
                                     </strong>
                                 </h4>
                                 <div class="alert alert-success" id="successAuth" style="display: none;"></div>
                                 <form>
-                                    <input id="number" type="hidden"
-                                        value="{{'+'. $user['country_code'] . $user['phone']}}">
+                                    <input id="number" type="hidden" value="{{'+'. $country_code . $user['phone']}}">
                                     <div id="recaptcha-container" class="d-flex justify-content-center mt-3"></div>
                                     <button id="send-button" type="button" class="btn btn-primary mt-3"
                                         onclick="sendOTP();">
@@ -39,7 +38,7 @@
                                     تم إرسال رمز التحقق إلى رقم الهاتف المحمول الخاص بك
                                     <br />
                                     <strong>
-                                        {{'+'. $user['country_code'] . " " . $user['phone']}}
+                                        {{'+'. $country_code . " " . $user['phone']}}
                                     </strong>
                                 </p>
                                 <div class="alert alert-success" id="successOtpAuth" style="display: none;"></div>
@@ -158,21 +157,18 @@
             $("#successOtpAuth").show();
 
             $.ajax({
+                url: "{{ route('forget-password.change-password') }}",
+                type: "POST",
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'Accept': "application/json"
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 },
-                url: '{{ route("register.store") }}',
-                method: 'POST',
-                success: function (data) {
-                    window.location.href = "{{ route('register.success') }}";
+                data: {
+                    phone: "{{ $user['phone'] }}",
                 },
-                error: function (error) {
-                    $("#error").text(error.responseJSON.message);
-                    $("#error").show();
-                }
+                success: function(data){
+                    window.location.href = "{{ route('forget-password.change-password.form', [ 'phone' => $user['phone']]) }}";
+                },
             });
-
         }).catch(function (error) {
             $("#error").text(error.message);
             $("#error").show();

@@ -50,11 +50,14 @@ class RegisterController extends Controller
 
     protected function create(UserRequest $request)
     {
+        // remove white space from phone number
+        $phone = preg_replace('/\s+/', '', $request->phone);
+
         $request->session()->put(
             'user',
             [
                 'name' => $request->name,
-                'phone' => $request->phone,
+                'phone' => $phone,
                 'password' => $request->password,
                 'country_code' => $request->countryCode,
             ]

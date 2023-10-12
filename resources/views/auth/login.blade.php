@@ -7,21 +7,31 @@
             <div class="col-lg-7 col-xl-7">
                 <div class="card text-black shadow" style="border-radius: 25px;">
                     <div class="card-body p-3">
+                        @if (session('message'))
+                            <div class="alert alert-danger">{{ session('message') }}</div>
+                        @endif
                         <form class="form-horizontal form-material" id="loginform" action="{{ route('login') }}"
                             method="POST">
                             @csrf
                             <h3 class="text-center m-b-20">تسجيل الدخول</h3>
                             <div class="form-group">
-                                <input class="form-control" type="text" required="" placeholder="رقم الهاتف"
-                                    name="phone">
+                                <input class="form-control" type="text" required="" placeholder="رقم الهاتف" name="phone">
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="password" required="" placeholder="كلمة السر"
-                                    name="password">
+                                <input class="form-control" type="password" required="" placeholder="كلمة السر" name="password">
                             </div>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="form-group text-center">
-                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">تسجيل
-                                    الدخول</button>
+                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">تسجيل الدخول</button>
                             </div>
                         </form>
                         <div class="row">

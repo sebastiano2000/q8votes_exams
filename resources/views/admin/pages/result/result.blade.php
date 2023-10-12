@@ -29,9 +29,9 @@
 
                             <img alt="success" src="{{ asset('admin_assets/images/failure.png') }}"
                                 style="width: 102px;">
-                            <p class="text-danger-result mt-3">
+                            <h1 class="text-danger-result mt-3">
                                 نأسف لقد رسبت في الاختبار
-                            </p>
+                            </h1>
 
                             <div class="result-container">
                                 <p class="text-result-name mt-3">

@@ -155,6 +155,8 @@
             var user = result.user;
             $("#successOtpAuth").text("Auth is successful");
             $("#successOtpAuth").show();
+            console.log(coderesult);
+
 
             $.ajax({
                 url: "{{ route('forget-password.change-password') }}",
@@ -164,9 +166,12 @@
                 },
                 data: {
                     phone: "{{ $user['phone'] }}",
+                    verification_id: coderesult.verificationId,
                 },
                 success: function(data){
-                    window.location.href = "{{ route('forget-password.change-password.form', [ 'phone' => $user['phone']]) }}";
+                        // window.location.href = `forget-password/change-passwords?phone={{$user['phone']}}&verification_id=${coderesult.verificationId}`
+                        window.location.href = "{{ route('forget-password.change-password.form', [ 'phone' => $user['phone']]) }}";
+
                 },
             });
         }).catch(function (error) {

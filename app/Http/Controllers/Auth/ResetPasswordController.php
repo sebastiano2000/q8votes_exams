@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\CheckRequest;
 use App\Http\Requests\Auth\PasswordRequest;
 use App\Models\User;
+use App\Models\Verification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -57,7 +58,8 @@ class ResetPasswordController extends Controller
 
     public function changePassword(CheckRequest $request)
     {
-        return true;
+        return Verification::saveVerification($request);
+
     }
 
     public function changeForm($request)
@@ -69,6 +71,7 @@ class ResetPasswordController extends Controller
 
     public function store(PasswordRequest $request)
     {
+
         User::where('phone', $request->phone)->update(['password' => Hash::make($request->password)]);
 
         return view('auth.passwords.success');

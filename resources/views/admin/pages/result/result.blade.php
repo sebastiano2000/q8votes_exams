@@ -2,13 +2,13 @@
 @section('content')
 <div class="main-wrapper">
     <!-- Page Wrapper -->
-    <div class="page-wrapper">
+    <div class="page-wrapper m-4">
         <div class="content container-fluid">
             <!-- /Page Header -->
             <div class="d-flex justify-content-center h-100">
                 <div class="col-lg-7 col-xl-7">
                     <div class="card text-black shadow" style="border-radius: 25px;">
-                        <div class="d-flex flex-column align-items-center p-md-5">
+                        <div class="d-flex flex-column align-items-center p-3">
                             @if(($result->score / $total) > 0.5 )
                             <img alt="success" src="{{ asset('admin_assets/images/goal.png') }}" style="width: 102px;">
                             <h1 class="text-success-result mt-3">تهانينا لقد نجحت في الأختبار</h1>

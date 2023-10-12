@@ -5689,7 +5689,7 @@ table.table-inbox tbody tr.checked {
     }
 
     .card-body {
-        padding: 1.25rem;
+        /* padding: 1.25rem; */
     }
 
     .card-header {
@@ -5701,7 +5701,7 @@ table.table-inbox tbody tr.checked {
     }
 
     .card-chart .card-body {
-        padding: 5px;
+        /* padding: 5px; */
     }
 
     .page-header {
@@ -5829,7 +5829,7 @@ body {
     width: 100% !important;
 }
 .card-body {
-    padding: 2rem;
+    /* padding: 2rem; */
 }
 
 .login-register {
@@ -6008,7 +6008,6 @@ h1 {
 
 .otp-field {
     flex-direction: row;
-    column-gap: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6294,7 +6293,7 @@ h1::before {
 }
 
 .back-btn {
-    margin-top: -150px !important;
+    margin-top: -180px !important;
 }
 
 .back-btn a {
@@ -6406,19 +6405,35 @@ input:checked+.slider:before {
     color: #707070;
 }
 
+@media screen and (max-width: 768px) {
+    .result-container{
+        width: 100% !important;
+    }
+
+    .text-result-details{
+        font-size: 15px !important;
+    }
+
+    .text-danger-result{
+        font-size: 20px !important;
+    }
+
+    .text-success-result{
+        font-size: 20px !important;
+    }
+
+    .text-result-name{
+        font-size: 20px !important;
+    }
+
+}
+
+
 /* MEDIA QUERY */
 
 @media (max-width: 420px) {
     body {
         font-size: .8rem;
-    }
-
-    main {
-        width: 92%;
-    }
-
-    section {
-        background: linear-gradient(to right, #3f2b96, #1f0961);
     }
 
     label {

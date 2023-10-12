@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="vh-100" style="background-color: #eee;">
+<section class="vh-100">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-7 col-xl-7">
                 <div class="card text-black shadow" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
+                    <div class="card-body p-3">
                         <form class="form-horizontal form-material" id="loginform" action="{{ route('login') }}"
                             method="POST">
                             @csrf

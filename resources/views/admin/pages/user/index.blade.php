@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body p-3">
                                 <div class="table-responsive">
                                     <form class="form" action="{{ route('user.filter') }}" method="get">
                                         <div class="form-group d-flex align-items-center">
@@ -121,7 +121,7 @@
                                             <input type="text" class="form-control" id="full_name" name="name" placeholder="Enter Name" value="" maxlength="50" required="">
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-2">
                                         <label class="mb-2">{{ __('pages.Phone') }}</label>
                                         <div class="col-md-8">
                                             <div class="form-group">

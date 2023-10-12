@@ -4,15 +4,15 @@
 @endsection
 
 @section('content')
-<section class="vh-100" style="background-color: #eee;">
+<section class="vh-100">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
                 <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
+                    <div class="card-body p-3">
                         <div class="alert alert-danger" id="error" style="display: none;"></div>
                         <div class="row justify-content-center">
-                            <div id="send-otp" class="card-body p-5 text-center">
+                            <div id="send-otp" class="card-body p-3 text-center">
                                 <h4>
                                     أرسل رمز التحقق الي
                                     <strong>
@@ -30,7 +30,7 @@
                                 </form>
                             </div>
 
-                            <div id="verifiy-otp" class="card-body p-5 text-center d-none">
+                            <div id="verifiy-otp" class="card-body text-center d-none">
                                 <h4>
                                     رمز التحقق
                                 </h4>

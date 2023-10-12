@@ -5,7 +5,7 @@
             <div class="content container-fluid">
                 <div class="page-header">
                     @if(!Auth::user()->isAdmin())
-                        <div class="row row-cols-2 justify-content-center p-5">
+                        <div class="row row-cols-2 justify-content-center">
                             <div class="col-xl-5 col-8">
                                 <div class="container-tenant mb-4">
                                     <div class="wrapper-tenant">

@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <div class="card-body custom-edit-service">                 
+                            <div class="card-body custom-edit-service p-3">                 
                                 <!-- Add Blog -->
                                 <form method="post" enctype="multipart/form-data" action="{{ route('question.modify') }}" class="ajax-form" swalOnSuccess="{{ __('pages.sucessdata') }}" title="{{ __('pages.opps') }}" swalOnFail="{{ __('pages.wrongdata') }}" redirect="{{ route('question') }}">
                                     @csrf

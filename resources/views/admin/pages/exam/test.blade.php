@@ -41,7 +41,7 @@
                 </div>
             </form>
         </main>
-        <a id="btn" class="back-btn" href="{{ route('home') }}">
+        <a id="btn" class="back-btn" style="min-width: 230px !important;" href="{{ route('home') }}">
             العودة الي الصفحة الرئيسية
         </a>
     </section>

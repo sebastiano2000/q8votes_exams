@@ -7,8 +7,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Q8votes.exams') }}</title>
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin_assets/images/favicon.jpeg') }}">
+    <title>Q8votes</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">

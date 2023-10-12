@@ -9,7 +9,7 @@
                             <div class="col-xl-5 col-8">
                                 <div class="container-tenant mb-4">
                                     <div class="wrapper-tenant">
-                                        <h1> الاختبار تجريبي</h1>
+                                        <h1> الاختبار التجريبي</h1>
                                         <div class="button-wrapper">
                                             <a href="{{ route('exam.test') }}" class="btn-tenant fill-tenant">الاختبار</a>
                                         </div>

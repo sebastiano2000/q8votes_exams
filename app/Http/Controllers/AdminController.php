@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tenant;
@@ -12,11 +13,14 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.pages.dashboard', ['tenants' => []]);
-    }
-    
-    public function getData(Request $request)
-    {
-        return Tenant::data($request);
+        if(Auth::user()->finish){
+            $result = Result::where('user_id', Auth::user()->id)->first();
+
+            return view('admin.pages.result.result',[
+                'result' => $result,
+            ]);
+        }
+
+        return view('admin.pages.dashboard');
     }
 }

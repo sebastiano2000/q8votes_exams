@@ -4,14 +4,14 @@
     <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px;">
         <main class="question-main">
             <div class="text-container">
-                <h3>الاختبار</h3>
-                <p>السؤال {{ $page }} من {{ $total }}</p>
-                <p>{{$slice->first()->title}}</p>
+                <h3>الاختبار التجريبي</h3>
+                <p>السؤال {{ $page }}</p>
+                <p>{{$slice->title}}</p>
             </div>
             <form>
                 <div class="quiz-options">
-                        @foreach($slice->first()->answers as $key => $answer)
-                            <input type="radio" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->first()->id}}" required>
+                        @foreach($slice->answers as $key => $answer)
+                            <input type="radio" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->id}}" required>
                             <label class="radio-label" for="one-{{$key + 1}}">
                                 <span class="alphabet">
                                     @if($key == 0)
@@ -28,20 +28,16 @@
                         @endforeach
                 </div>
                 <div class="d-flex">
-                    @if($page < $total)
-                        @if($page > 1)
-                            @php
-                                $prev = $page - 1; 
-                            @endphp
-                        <a id="btn" type="submit" href="test?page={{ $prev }}">السابق</a>
-                        @endif
+                    @if($page > 1)
                         @php
-                            $pageno = $page + 1; 
+                            $prev = $page - 1; 
                         @endphp
-                        <a id="btn" type="submit" href="test?page={{ $pageno }}">التالي</a>
-                    @else
-                        <a id="btn" type="submit" href="#">انهاء الاختبار</a>
+                    <a id="btn" type="submit" href="test?page={{ $prev }}">السابق</a>
                     @endif
+                    @php
+                        $pageno = $page + 1; 
+                    @endphp
+                    <a id="btn" type="submit" href="test?page={{ $pageno }}">التالي</a>
                 </div>
             </form>
         </main>

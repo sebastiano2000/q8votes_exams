@@ -21500,7 +21500,9 @@ File: scss
   /* .d-flex {
     display: block !important; } */
     .d-flex.no-block {
-      display: flex !important; } }
+      display: flex !important;
+      display: -webkit-flex;
+    } }
 
 /*-- ============================================================== 
  Ipad & above all(768px) 

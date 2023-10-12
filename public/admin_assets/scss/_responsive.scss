@@ -47,6 +47,7 @@ File: scss
         display:block!important; 
         &.no-block{
             display:flex!important;
+            display: -webkit-flex !important;
         }
     }
 }

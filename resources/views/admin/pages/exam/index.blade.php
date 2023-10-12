@@ -5,7 +5,7 @@
   <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px;">
     <main class="question-main">
           <div class="text-container">
-              <h3>الاختبار</h3>
+              <h3>الاختبار الرئيسي</h3>
               <p>السؤال {{ $page }} من {{ $total }}</p>
               <p>{{$slice->first()->title}}</p>
           </div>
@@ -41,7 +41,11 @@
                     @endphp
                     <a id="btn" type="submit" href="exam?page={{ $pageno }}">التالي</a>
                 @else
-                    <a id="btn" type="submit" href="#">انهاء الاختبار</a>
+                    @php
+                        $prev = $page - 1; 
+                    @endphp
+                    <a id="btn" type="submit" href="exam?page={{ $prev }}">السابق</a>
+                    <a id="btn" type="submit" href="{{route('save.result')}}">انهاء الاختبار</a>
                 @endif
               </div>
           </form>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,4 +21,41 @@ class Result extends Model
         'user_id',
         'score',
     ];
+
+    static function enterTotal($request)
+    {
+        $answers = UserResult::where('user_id', Auth::user()->id)->get();
+
+        $total = $answers->pluck('result')->sum();
+
+        $user_result = Result::updateOrCreate(
+            [
+                'user_id' => Auth::user()->id,
+            ],
+            [
+                'user_id' => Auth::user()->id,
+                'score' => $total,
+            ]
+        );
+
+        $user = User::where('id', Auth::user()->id)->update(['finish' => 1]);
+
+        return $user_result;
+    }
+
+    public function scopeFilter($query, $request)
+    {
+        if (isset($request['name'])) {
+            $query->whereHas('user', function ($query) use($request) {
+                $query->where('name', $request['name']);
+            })->get();
+        }
+
+        return $query;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

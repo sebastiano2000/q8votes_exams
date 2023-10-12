@@ -52,7 +52,7 @@ class ResetPasswordController extends Controller
             );
         }
 
-        return view('auth.login');
+        return redirect()->route('login');
     }
 
     public function changePassword(CheckRequest $request)

@@ -18,7 +18,7 @@ class CheckSuspend
         if (auth()->user()->suspend == 1){
             auth()->logout();
 
-            $message = __('auth.this_account_is_suspended');
+            $message = 'تم تعليق هذا الحساب مؤقتا';
 
             return redirect()->route('login')->withMessage($message);
         }

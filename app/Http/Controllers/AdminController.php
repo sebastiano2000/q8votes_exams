@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Result;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Tenant;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
 
 class AdminController extends Controller
 {

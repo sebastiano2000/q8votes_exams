@@ -50,10 +50,12 @@
                                                         <td>المتدرب</td>
                                                     @endif
                                                     <td>
-                                                        <label class="switch switch_user_status" style="width: 50px; height: 25px;">
-                                                            <input type="checkbox" class="user_status" @if($user->suspend) value="1" @else value="0" @endif user_id="{{ $user->id }}" name="user_suspend" style="width: 15px; height: 15px;">
-                                                            <span class="slider round" style="border-radius: 25px;"></span>
-                                                        </label>
+                                                        @if($user->role_id != 1) 
+                                                            <label class="switch switch_user_status" style="width: 50px; height: 25px;">
+                                                                <input type="checkbox" class="user_status" @if($user->suspend) value="1" @else value="0" @endif user_id="{{ $user->id }}" name="user_suspend" style="width: 15px; height: 15px;">
+                                                                <span class="slider round" style="border-radius: 25px;"></span>
+                                                            </label>
+                                                        @endif
                                                     </td>
                                                     <td class="text-end">
                                                         <div class="actions">
@@ -76,7 +78,7 @@
                                                             >
                                                                 <i class="ti-pencil"></i> تعديل كلمة السر 
                                                             </a> -->
-                                                            @if($user->role_id != '1') 
+                                                            @if($user->role_id != 1) 
                                                                 <a data-bs-toggle="modal" href="#" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
                                                                     <i class="ti-trash"></i> {{ __('pages.delete') }}
                                                                 </a>
@@ -197,10 +199,10 @@
     $(".user_status").on("change", function(){   
         if ($(this).is(":checked"))
         {
-            $(this).val(0);
+            $(this).val(1);
         }   
         else {
-            $(this).val(1);
+            $(this).val(0);
         }
 
         $.ajax({
@@ -226,7 +228,7 @@
     
     $(document).ready(function(){
         for(let status of $('.user_status')){
-            if (status.value == 0)
+            if (status.value == 1)
             {
                 status.checked = true;
             } 

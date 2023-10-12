@@ -34,6 +34,8 @@ Route::group(['prefix' => 'user_result'],function(){
 });
 
 Route::group(['prefix' => 'result'],function(){
+    Route::get('/', [ResultController::class, "index"])->name('result');
+    Route::get('/filter',[ResultController::class,'filter'])->name('result.filter');
     Route::get('/insert/total', [ResultController::class, "enterTotal"])->name('save.result');
 });
 

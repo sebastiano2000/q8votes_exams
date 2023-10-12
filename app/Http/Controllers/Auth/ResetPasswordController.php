@@ -41,6 +41,7 @@ class ResetPasswordController extends Controller
     public function check(Request $request)
     {
         $user = User::where('phone', $request->phone)->first();
+
         if ($user) {
             return view(
                 'auth.passwords.verification',
@@ -50,6 +51,8 @@ class ResetPasswordController extends Controller
                 ]
             );
         }
+
+        return view('login');
     }
 
     public function changePassword(CheckRequest $request)

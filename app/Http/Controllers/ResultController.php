@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Models\Result;
 use Auth;
 use Illuminate\Http\Request;
@@ -21,9 +22,12 @@ class ResultController extends Controller
     public function enterTotal(Request $request)
     {
         $result = Result::enterTotal($request);
+        $count = Question::count();
+        $total = $count > 30 ? 30 : $count;
 
         return view('admin.pages.result.result',[
             'result' => $result,
+            'total' => $total,
         ]);
     }
 

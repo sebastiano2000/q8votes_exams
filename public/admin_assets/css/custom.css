@@ -230,7 +230,7 @@ textarea.form-control {
 }
 
 .material-icons {
-    font-family: "Material Icons";
+    font-family: "Material Icons", sans-serif;
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
@@ -6369,8 +6369,41 @@ input:checked+.slider:before {
     height: 0;
 }
 
-.slider.round:before {
-    border-radius: 50%;
+.result-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 443px;
+    background: #F3EFEF;
+    border-radius: 32px;
+}
+
+.text-success-result{
+    font-family: TheSans Plain, sans-serif;
+    font-size: 30px;
+    color: #02A9F1;
+}
+
+.text-danger-result{
+    font-family: TheSans Plain, sans-serif;
+    font-size: 30px;
+    color: #F10202;
+}
+
+.text-result-details{
+    text-align: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: #707070;
+}
+
+.text-result-name{
+    text-align: left;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    color: #707070;
 }
 
 /* MEDIA QUERY */

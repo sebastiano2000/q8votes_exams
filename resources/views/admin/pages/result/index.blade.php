@@ -9,7 +9,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-7 col-auto">
-                            <h3 class="page-title">الاسئلة</h3>
+                            <h3 class="page-title">نتائج الاختبار</h3>
                         </div>
                     </div>
                 </div>
@@ -28,14 +28,15 @@
                                     <table id="example" class=" display  table table-hover table-center mb-0"  filter="{{ route('result.filter') }}">
                                         <thead>
                                             <tr>
-                                                <th>رأس السؤال</th>
-                                                <th class="text-end">{{ __('pages.actions') }}</th>
+                                                <th>اسم المتدرب</th>
+                                                <th>النتيجة</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($results as $result)
                                                 <tr class="record">
-                                                    <td>{{ $result->title }}</td>
+                                                    <td>{{ $result->user->name }}</td>
+                                                    <td>{{ $result->score }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>  

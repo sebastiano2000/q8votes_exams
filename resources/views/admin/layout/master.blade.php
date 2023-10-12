@@ -99,6 +99,12 @@
                                 الاسئلة
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('result') }}">
+                                <i class="ti-control-record text-success"></i>
+                                نتائج الاختبار
+                            </a>
+                        </li>
                         @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"

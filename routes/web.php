@@ -21,12 +21,12 @@ Route::get('/', function () {
 });
 
 
-// Route::group(['prefix' => 'register'], function () {
-//     Route::post('/data', [RegisterController::class, 'create'])->name('register.create');
-//     Route::get('/verification', [RegisterController::class, 'verification'])->name('register.verification');
-//     Route::post('/store', [RegisterController::class, 'store'])->name('register.store');
-//     Route::get('/success', [RegisterController::class, 'success'])->name('register.success');
-// });
+Route::group(['prefix' => 'register'], function () {
+    Route::post('/data', [RegisterController::class, 'create'])->name('register.create');
+    Route::get('/verification', [RegisterController::class, 'verification'])->name('register.verification');
+    Route::post('/store', [RegisterController::class, 'store'])->name('register.store');
+    Route::get('/success', [RegisterController::class, 'success'])->name('register.success');
+});
 
 
 Route::get('/dashboard', function () {

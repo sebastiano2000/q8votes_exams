@@ -113,6 +113,8 @@
 </script>
 
 <script type="text/javascript">
+    var coderesult; // Declare coderesult in a higher scope
+
     window.onload = function () {
         render();
     };
@@ -150,36 +152,44 @@
     }
 
     function verify() {
-        var code = $(".input_1").val() + $(".input_2").val() + $(".input_3").val() + $(".input_4").val() + $(".input_5").val() + $(".input_6").val();
-        coderesult.confirm(code).then(function (result) {
-            var user = result.user;
-            $("#successOtpAuth").text("Auth is successful");
-            $("#successOtpAuth").show();
-            console.log(coderesult);
+        var code = [
+            $(".input_1").val(),
+            $(".input_2").val(),
+            $(".input_3").val(),
+            $(".input_4").val(),
+            $(".input_5").val(),
+            $(".input_6").val()
+        ].join("");
 
+        coderesult.confirm(code)
+            .then(function(result) {
+                var user = result.user;
+                $("#successOtpAuth").text("Auth is successful").show();
+                console.log(coderesult);
+                var code = coderesult.verificationId;
 
-            $.ajax({
-                url: "{{ route('forget-password.change-password') }}",
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                data: {
-                    phone: "{{ $user['phone'] }}",
-                    verification_id: coderesult.verificationId,
-                },
-                success: function(data){
-                        // window.location.href = `forget-password/change-passwords?phone={{$user['phone']}}&verification_id=${coderesult.verificationId}`
-                        window.location.href = "{{ route('forget-password.change-password.form', [ 'phone' => $user['phone']]) }}";
-
-                },
+                $.ajax({
+                    url: "{{ route('forget-password.change-password') }}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    data: {
+                        phone: "{{ $user['phone'] }}",
+                        verification_id: coderesult.verificationId,
+                    },
+                    success: function(data){
+                        var link = `change-password/verfication?phone={{$user['phone']}}&verification=${coderesult.verificationId}`;
+                        window.location.replace(link);
+                    },
+                });
+            })
+            .catch(function(error) {
+                $("#error").text(error.message).show();
             });
-        }).catch(function (error) {
-            $("#error").text(error.message);
-            $("#error").show();
-        });
     }
 
 </script>
+
 
 @endsection

@@ -58,14 +58,17 @@ class ResetPasswordController extends Controller
 
     public function changePassword(CheckRequest $request)
     {
-        return Verification::saveVerification($request);
 
+        return Verification::saveVerification($request);
     }
 
-    public function changeForm($request)
+    public function changeForm(Request $request)
     {
+        if (Verification::verifiyId($request)['status'] == false) {
+            return redirect()->route('forget-password.reset');
+        }
         return view('auth.passwords.change-password', [
-            'phone' => $request,
+            'phone' => $request->phone,
         ]);
     }
 

@@ -30,9 +30,8 @@ class Verification extends Model
     static function verifiyId($request)
     {
         $get_verification_data = self::where(['phone' => $request->phone])->first();
-
         if ($get_verification_data->count()) {
-            if (password_verify($request->verificationId, $get_verification_data->verification_id)) {
+            if (Hash::check($request->verification, $get_verification_data->verification_id)) {
                 return ['status' => true];
             }
         }

@@ -40,7 +40,7 @@ Route::group(['prefix' => 'forget-password'], function () {
     Route::post('/check', [ResetPasswordController::class, 'check'])->name('forget-password.check');
 
     Route::post('/change-password', [ResetPasswordController::class, 'changePassword'])->name('forget-password.change-password');
-    Route::get('/change-passwords/{phone}/{verification_id}', [ResetPasswordController::class, 'changeForm'])->name('forget-password.change-password.form');
+    Route::get('/change-password/verfication', [ResetPasswordController::class, 'changeForm'])->name('forget-password.change-password.form');
 
     Route::post('/store', [ResetPasswordController::class, 'store'])->name('forget-password.change-password.store');
     Route::get('/success', [ResetPasswordController::class, 'success'])->name('forget-password.success');

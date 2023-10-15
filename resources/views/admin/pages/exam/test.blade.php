@@ -30,12 +30,12 @@
                 <div class="d-flex">
                     @if($page > 1)
                         @php
-                            $prev = $page - 1; 
+                            $prev = $page - 1;
                         @endphp
                     <a id="btn" type="submit" href="test?page={{ $prev }}">السابق</a>
                     @endif
                     @php
-                        $pageno = $page + 1; 
+                        $pageno = $page + 1;
                     @endphp
                     <a id="btn" type="submit" href="test?page={{ $pageno }}">التالي</a>
                 </div>

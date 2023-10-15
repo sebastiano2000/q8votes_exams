@@ -66,7 +66,7 @@ class LoginController extends Controller
         // check if user exceed the maximum number of sessions before login
         $user = User::where('phone', $request->phone)->first();
 
-        if ($user->session_count >= 2) {
+        if ($user->session_count >= $user->session_limit) {
             return redirect()->back()->withErrors(['session' => 'لقد تجاوزت الحد الأقصى لعدد الجلسات المسموح بها']);
         }
 

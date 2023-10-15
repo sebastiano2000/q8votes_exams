@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('finish')->default(0);
             $table->string('password')->nullable();
             $table->integer('session_count')->default(0);
+            $table->integer('session_limit')->default(5);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -63,27 +64,66 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        // check if user exceed the maximum number of sessions before login
+
         $user = User::where('phone', $request->phone)->first();
 
-        if ($user->session_count >= $user->session_limit) {
-            return redirect()->back()->withErrors(['session' => 'لقد تجاوزت الحد الأقصى لعدد الجلسات المسموح بها']);
+        if (!password_verify($request->password, $user->password)) {
+            return redirect()->back();
         }
 
+        $tokens = explode(',', $user->logintoken);
+
+
+        if (isset($_COOKIE["logintoken"])) {
+            if (in_array($_COOKIE["logintoken"], $tokens, true)) {
+                if ($this->attemptLogin($request)) {
+                    $user = Auth::user();
+                    if ($request->hasSession()) {
+                        $request->session()->put('auth.password_confirmed_at', time());
+                    }
+                    $user->save();
+                    return $this->sendLoginResponse($request);
+                }
+            } else {
+                if (count($tokens) > $user->session_limit) {
+                    return redirect()->back()->withErrors(['session' => 'لقد تجاوزت الحد الأقصي للأجهزة']);
+                }
+
+                $token =  bin2hex(random_bytes(32));
+                $time = time() + (365 * 24 * 60);
+                setcookie('logintoken', $token, $time);
+
+                if ($this->attemptLogin($request)) {
+                    $user = Auth::user();
+                    if ($request->hasSession()) {
+                        $request->session()->put('auth.password_confirmed_at', time());
+                    }
+                    $tokens[] = $token;
+                    $user->logintoken = implode(',', $tokens);
+                    $user->save();
+                    return $this->sendLoginResponse($request);
+                }
+            }
+        }
+
+        if (count($tokens) >= $user->session_limit) {
+            return redirect()->back()->withErrors(['session' => 'لقد تجاوزت الحد الأقصي للأجهزة']);
+        }
+
+        $token =  bin2hex(random_bytes(32));
+        $time = time() + (365 * 24 * 60);
+        setcookie('logintoken', $token, $time);
 
         if ($this->attemptLogin($request)) {
             $user = Auth::user();
-
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
-
-            $user->session_count++;
+            $tokens[] = $token;
+            $user->logintoken = implode(',', $tokens);
             $user->save();
-
             return $this->sendLoginResponse($request);
         }
-
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
@@ -113,25 +153,5 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         return $request->only($this->username(), 'password');
-    }
-
-    public function logout(Request $request)
-    {
-        $user = Auth::user();
-        // count should be greater than or equall 0
-        if ($user->session_count > 0) {
-            $user->session_count--;
-        }
-
-
-        $user->save();
-
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect()->route('login');
     }
 }

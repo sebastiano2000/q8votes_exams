@@ -27,8 +27,8 @@ class User extends Authenticatable
         'name',
         'phone',
         'password',
-        'session_count',
         'session_limit',
+        'logintoken',
         'role_id',
         'suspend',
         'finish'

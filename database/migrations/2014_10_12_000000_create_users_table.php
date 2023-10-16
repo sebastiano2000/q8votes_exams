@@ -19,8 +19,8 @@ return new class extends Migration
             $table->boolean('suspend')->default(0);
             $table->boolean('finish')->default(0);
             $table->string('password')->nullable();
-            $table->integer('session_count')->default(0);
-            $table->integer('session_limit')->default(5);
+            $table->integer('session_limit')->default(2);
+            $table->text('logintoken');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

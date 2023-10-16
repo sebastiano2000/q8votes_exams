@@ -60,6 +60,14 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <a href="https://wa.me/+96596615789">
+                    <h2 style="text-">
+                        WhatsApp
+                        <img src="{{ asset('admin_assets/images/whatsapp.png') }}" alt="whatsapp" width="40px">
+                    </h1>
+                </a>
+            </div>
         </div>
     </div>
 </section>

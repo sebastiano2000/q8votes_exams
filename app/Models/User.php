@@ -27,6 +27,8 @@ class User extends Authenticatable
         'name',
         'phone',
         'password',
+        'session_count',
+        'session_limit',
         'role_id',
         'suspend',
         'finish'
@@ -83,6 +85,11 @@ class User extends Authenticatable
     static function statusUpdate($request)
     {
         return User::where('id', $request->id)->update(['suspend' => $request->suspend]);
+    }
+
+    static function limitUpdate($request)
+    {
+        return User::where('id', $request->id)->update(['session_limit' => $request->limit]);
     }
 
     public function scopeFilter($query, $request)

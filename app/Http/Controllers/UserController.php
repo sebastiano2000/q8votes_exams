@@ -50,6 +50,11 @@ class UserController extends Controller
         return User::statusUpdate($request);
     }
 
+    public function limit(Request $request)
+    {
+        return User::limitUpdate($request);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

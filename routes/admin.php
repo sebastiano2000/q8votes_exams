@@ -47,6 +47,7 @@ Route::group(['prefix' => 'user'],function(){
     Route::get('/upsert/{user?}',[UserController::class,'upsert'])->name('user.upsert');
     Route::get('/filter',[UserController::class,'filter'])->name('user.filter');
     Route::post('/status/update',[UserController::class,'status'])->name('user.status');
+    Route::post('/limit/update',[UserController::class,'limit'])->name('user.limit');
     Route::post('/modify',[UserController::class,'modify'])->name('user.modify');
     Route::post('/modify/password',[UserController::class,'modifyPassword'])->name('user.password');
     Route::post('/delete/{user}',[UserController::class,'destroy'])->name('user.delete');

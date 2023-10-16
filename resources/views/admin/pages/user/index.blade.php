@@ -36,6 +36,7 @@
                                                 <th>{{ __('pages.mobile') }}</th>
                                                 <th>{{ __('pages.role') }}</th>
                                                 <th>تعليق المستخدم</th>
+                                                <th> الحد الأقصي للأجزة</th>
                                                 <th class="text-end">{{ __('pages.actions') }}</th>
                                             </tr>
                                         </thead>
@@ -50,12 +51,17 @@
                                                         <td>المتدرب</td>
                                                     @endif
                                                     <td>
-                                                        @if($user->role_id != 1) 
+                                                        @if($user->role_id != 1)
                                                             <label class="switch switch_user_status" style="width: 50px; height: 25px;">
                                                                 <input type="checkbox" class="user_status" @if($user->suspend) value="1" @else value="0" @endif user_id="{{ $user->id }}" name="user_suspend" style="width: 15px; height: 15px;">
                                                                 <span class="slider round" style="border-radius: 25px;"></span>
                                                             </label>
                                                         @endif
+                                                    </td>
+                                                    <td>
+                                                        {{-- @if($user->role_id != 1) --}}
+                                                            <input type="number" class="form-control session_limit" value="{{ $user->session_limit }}"  user_id="{{ $user->id }}" name="session_limit" style="width: 80px; height: 25px; text-align: center;" >
+                                                        {{-- @endif --}}
                                                     </td>
                                                     <td class="text-end">
                                                         <div class="actions">
@@ -78,7 +84,7 @@
                                                             >
                                                                 <i class="ti-pencil"></i> تعديل كلمة السر 
                                                             </a> -->
-                                                            @if($user->role_id != 1) 
+                                                            @if($user->role_id != 1)
                                                                 <a data-bs-toggle="modal" href="#" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
                                                                     <i class="ti-trash"></i> {{ __('pages.delete') }}
                                                                 </a>
@@ -212,6 +218,28 @@
             url: '{{ route("user.status") }}',
             method: 'post',
             data: {id: $(this).attr("user_id"), suspend: $(this).val()},
+            success: () => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: "{{ __('pages.sucessdata') }}"
+                });
+            }
+        });
+    });
+
+    $(".session_limit").on("change", function(){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            url: '{{ route("user.limit") }}',
+            method: 'post',
+            data: {id: $(this).attr("user_id"), limit: $(this).val()},
             success: () => {
                 Swal.fire({
                     toast: true,

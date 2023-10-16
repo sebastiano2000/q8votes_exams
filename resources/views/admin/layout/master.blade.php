@@ -47,8 +47,8 @@
                         <b>
                             <img src="{{ asset('admin_assets/images/favicon.jpeg') }}" alt="homepage" class="dark-logo"
                                 style="max-height: 50px" />
-                            <img src="{{ asset('admin_assets/images/favicon.jpeg') }}" alt="homepage"
-                                class="light-logo" style="max-height: 50px" />
+                            <img src="{{ asset('admin_assets/images/favicon.jpeg') }}" alt="homepage" class="light-logo"
+                                style="max-height: 50px" />
                         </b>
                         <span>
                             <img src="{{ asset('admin_assets/images/logoq.png') }}" alt="homepage"
@@ -72,10 +72,12 @@
                                     </form>
                                 </li>
                             </ul>
+                            @if(Auth::user()->isAdmin())
                             <ul class="navbar-nav my-lg-0">
                                 <li class="nav-item right-side-toggle"> <a class="nav-link  waves-effect waves-light"
                                         href="javascript:void(0)"><i class="ti-settings"></i></a></li>
                             </ul>
+                            @endif
                 </div>
             </nav>
         </header>

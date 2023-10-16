@@ -9,28 +9,8 @@
                 <div class="col-lg-7 col-xl-7">
                     <div class="card text-black shadow" style="border-radius: 25px;">
                         <div class="d-flex flex-column align-items-center p-3">
-                            @if(($result->score / $total) > 0.5 )
-                            <img alt="success" src="{{ asset('admin_assets/images/goal.png') }}" style="width: 102px;">
-                            <h1 class="text-success-result mt-3">تهانينا لقد نجحت في الأختبار</h1>
-
-                            <div class="result-container">
-                                <p class="text-result-name mt-3">
-                                    {{$result->user->name}}
-                                </p>
-                                <p class="text-result-details">
-                                    درجتك النهائية هي : {{$result->score}} / {{$total}}
-                                </p class="text-result-details">
-                                <p class="text-result-details">
-                                    النسبة : {{round(($result->score / $total) * 100,2)}} %
-                                </p class="text-result-details">
-
-                            </div>
-                            @else
-
-                            <img alt="success" src="{{ asset('admin_assets/images/failure.png') }}"
-                                style="width: 102px;">
-                            <h1 class="text-danger-result mt-3">
-                                نأسف لقد رسبت في الاختبار
+                            <h1 class="text-success-result mt-3">
+                                انتهت أسئلة الاختبار التجريبي
                             </h1>
 
                             <div class="result-container">
@@ -43,12 +23,8 @@
                                 <p class="text-result-details">
                                     النسبة : {{round(($result->score / $total) * 100,2)}} %
                                 </p class="text-result-details">
-
                             </div>
-
-                            @endif
                         </div>
-
                     </div>
                 </div>
             </div>

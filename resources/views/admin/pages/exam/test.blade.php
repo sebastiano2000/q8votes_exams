@@ -11,8 +11,8 @@
             <form>
                 <div class="quiz-options">
                         @foreach($slice->answers as $key => $answer)
-                            <input type="radio" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->id}}" required>
-                            <label class="radio-label" for="one-{{$key + 1}}">
+                            <input type="radio" question_id="{{$slice->id}}" answer_id="{{$answer->id}}" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->id}}" required>
+                            <label class="radio-label" for="one-{{$key + 1}}" answer_id="{{$answer->id}}">
                                 <span class="alphabet">
                                     @if($key == 0)
                                         ا
@@ -48,26 +48,42 @@
 </div>
 @endsection
 
-
 @section('js')
-    <script>
-        $('.input-radio').on('change', function(){
-            let number = 0;
-            for(let label of document.querySelectorAll("label")){
-                label.classList.remove('active')
-            }
+<script>
+    $('.input-radio').on('change', function(){
+        let number = 0;
+        for(let label of document.querySelectorAll("label")){
+            label.classList.remove('active')
+        }
 
-            if($(this).attr('number').split('one-')[1] == '1'){
-                number = $(this).attr('number').split('one-')[1] - 1 + 2;
-            }
-            else if($(this).attr('number').split('one-')[1] == '2'){
-                number = $(this).attr('number').split('one-')[1] - 1 + 3;
-            }
-            else if($(this).attr('number').split('one-')[1] == '3'){
-                number = $(this).attr('number').split('one-')[1] - 1 + 4;
-            }
+        if($(this).attr('number').split('one-')[1] == '1'){
+            number = $(this).attr('number').split('one-')[1] - 1 + 2;
+        }
+        else if($(this).attr('number').split('one-')[1] == '2'){
+            number = $(this).attr('number').split('one-')[1] - 1 + 3;
+        }
+        else if($(this).attr('number').split('one-')[1] == '3'){
+            number = $(this).attr('number').split('one-')[1] - 1 + 4;
+        }
 
-            $(this).siblings().eq(number).addClass('active')
+        $(this).siblings().eq(number).addClass('active');
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            url: '{{ route("save.test") }}',
+            method: 'post',
+            data: {question_id: $(this).attr("question_id"), answer_id: $(this).attr('answer_id')},
+            success: (data) => {                
+                for(let label of document.querySelectorAll("label")){
+                    label.classList.remove('false_input')
+                }
+
+                $(`.radio-label`).addClass('false_input')
+                $(`.radio-label[answer_id='${data}']`).removeClass('false_input').addClass('true_input')
+            }
         });
-    </script>
+    });
+</script>
 @endsection

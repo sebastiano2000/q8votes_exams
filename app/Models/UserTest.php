@@ -6,15 +6,10 @@ use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserResult extends Model
+class UserTest extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'user_id',
         'question_id',
@@ -26,7 +21,7 @@ class UserResult extends Model
     {
         $answer = Answer::where('id', $request->answer_id)->first();
 
-        $user_result = UserResult::updateOrCreate(
+        $user_result = UserTest::updateOrCreate(
             [
                 'question_id' => $request->question_id,
                 'user_id' => Auth::user()->id,

@@ -13,7 +13,7 @@
               <div class="quiz-options">
                     @foreach($slice->first()->answers as $key => $answer)
                         <input type="radio" question_id="{{$slice->first()->id}}" answer_id="{{$answer->id}}" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->first()->id}}" required>
-                        <label class="radio-label" for="one-{{$key + 1}}">
+                        <label class="radio-label" for="one-{{$key + 1}}" answer_id="{{$answer->id}}">
                             <span class="alphabet">
                                 @if($key == 0)
                                     ا
@@ -54,7 +54,6 @@
 </div>
 @endsection
 
-
 @section('js')
 <script>
     $('.input-radio').on('change', function(){
@@ -82,19 +81,15 @@
             url: '{{ route("save.data") }}',
             method: 'post',
             data: {question_id: $(this).attr("question_id"), answer_id: $(this).attr('answer_id')},
-            success: () => {
-                // Swal.fire({
-                //     toast: true,
-                //     position: 'top-end',
-                //     showConfirmButton: false,
-                //     timer: 3000,
-                //     timerProgressBar: true,
-                //     icon: 'success',
-                //     title: "{{ __('pages.sucessdata') }}"
-                // });
+            success: (data) => {
+                for(let label of document.querySelectorAll("label")){
+                    label.classList.remove('false_input')
+                }
+
+                $(`.radio-label`).addClass('false_input')
+                $(`.radio-label[answer_id='${data}']`).removeClass('false_input').addClass('true_input')
             }
         });
     });
 </script>
-
 @endsection

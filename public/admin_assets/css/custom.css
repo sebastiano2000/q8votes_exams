@@ -6080,7 +6080,7 @@ a {
     max-width: 550px;
     margin: 0 auto 214px;
     box-shadow: 3px 15px 20px rgb(0 0 0 / 12%);
-    height: 550px;
+    min-height: 550px;
 }
 
 .text-container {
@@ -6153,7 +6153,8 @@ input:invalid+label:hover {
 
 label.active {
     color: #000;
-    background: linear-gradient(to right, #01a9f3, #ecf7ff);
+    border: 2px solid #000;
+    /* background: linear-gradient(to right, #01a9f3, #ecf7ff); */
 }
 
 #btn {
@@ -6505,4 +6506,12 @@ input:checked+.slider:before {
     label .jfdedgwfzexf4hjin {
         width: 12px;
     }
+}
+
+.true_input {
+    background-color: #4cf5c2;
+}
+
+.false_input {
+    background: rgba(255, 5, 5, 0.72);
 }

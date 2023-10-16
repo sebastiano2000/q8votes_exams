@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->delete();
     }
+
+    public function list()
+    {
+        return $this->hasMany(UserFav::class);
+    }
 }

@@ -13,27 +13,6 @@ class Log extends Model
 
     protected $fillable = ['user_id', 'action', 'message', 'action_model',  'action_id' ,'user_name', 'clinic_id'];
 
-    protected static function booted()
-    { 
-        if(Auth::hasUser())
-        {
-            if(! Auth::user()->isAdmin())
-            {
-                static::addGlobalScope(new TenantScope());
-            } 
-        } 
-    }
-
-    public function getCountAttribute()
-    {
-        return $this->count();
-    }
-
-    public function deleteInstance()
-    {
-        return $this->delete();
-    }
-
     //Scopes
     public function scopeFilter($query,$request)
     {

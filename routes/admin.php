@@ -5,7 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserResultController;
 use App\Http\Controllers\ResultController;
-use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\UserTestController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ProfileController;
 
@@ -31,6 +31,10 @@ Route::group(['prefix' => 'exam'],function(){
 
 Route::group(['prefix' => 'user_result'],function(){
     Route::post('/insert/result', [UserResultController::class, "enterResult"])->name('save.data');
+});
+
+Route::group(['prefix' => 'user_test'],function(){
+    Route::post('/insert/result', [UserTestController::class, "enterResult"])->name('save.test');
 });
 
 Route::group(['prefix' => 'result'],function(){

@@ -107,6 +107,12 @@
                                 نتائج الاختبار
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('log') }}">
+                                <i class="ti-control-record text-success"></i>
+                                <span>سجل العمليات</span>
+                            </a>
+                        </li>
                         @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"

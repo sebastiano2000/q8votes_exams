@@ -8,6 +8,8 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\UserTestController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\UserFavController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,10 @@ Route::group(['prefix' => 'user_result'],function(){
 
 Route::group(['prefix' => 'user_test'],function(){
     Route::post('/insert/result', [UserTestController::class, "enterResult"])->name('save.test');
+});
+
+Route::group(['prefix' => 'user_list'],function(){
+    Route::post('/add/list', [UserFavController::class, "saveList"])->name('save.list');
 });
 
 Route::group(['prefix' => 'result'],function(){
@@ -67,4 +73,9 @@ Route::group(['prefix' => 'question'],function(){
 
 Route::group(['prefix' => 'profile'],function(){
     Route::get('/', [ProfileController::class, "index"])->name('profile');
+});
+
+Route::group(['prefix' => 'log'],function(){
+    Route::get('/', [LogController::class,"index"])->name('log');
+    Route::get('/filter',[LogController::class,'filter'])->name('log.filter');
 });

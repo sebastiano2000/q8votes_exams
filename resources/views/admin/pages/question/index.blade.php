@@ -8,24 +8,27 @@
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="row">
-                        <div class="col-sm-7 col-auto">
+                        <div class="col-sm-8 col-auto">
                             <h3 class="page-title">الاسئلة</h3>
-                        </div>
-                        <div class="col-sm-5">
-                            <a href="{{ route('question.upsert') }}" class="btn btn-primary mt-2">  <i class="ti-plus"></i> اضف سؤال</a>
                             <form action="{{ route('question.import') }}"
+                                class="mt-2 w-50"
                                 method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <input type="file" name="file"
-                                    class="form-control">
+                                    class="form-control" required>
                                 <br>
-                                <button class="btn btn-success">
-                                    رفع ملف الأسئلة 
+                                <button class="btn btn-primary mt-1">
+                                    رفع ملف الأسئلة
                                 </button>
                             </form>
                         </div>
+                        <div class="col-sm-4">
+                            <a href="{{ route('question.upsert') }}" class="btn btn-primary float-end mt-2">  <i class="ti-plus"></i> اضف سؤال</a>
+
+                        </div>
                     </div>
+                    
                 </div>
 
                 <div class="row">

@@ -69,6 +69,8 @@ Route::group(['prefix' => 'question'],function(){
     Route::get('/filter',[QuestionController::class,'filter'])->name('question.filter');
     Route::post('/modify',[QuestionController::class,'modify'])->name('question.modify');
     Route::post('/delete/{question}',[QuestionController::class,'destroy'])->name('question.delete');
+    Route::post('/import',[QuestionController::class,'import'])->name('question.import');
+
 });
 
 Route::group(['prefix' => 'profile'],function(){

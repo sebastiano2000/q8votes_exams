@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-sm-5">
                             <a href="{{ route('question.upsert') }}" class="btn btn-primary mt-2">  <i class="ti-plus"></i> اضف سؤال</a>
-                            <a href="{{ route('question.upsert') }}" class="btn btn-primary mt-2">  <i class="ti-plus"></i> رفع ملف الأسئلة</a>
+                            <a href="{{ route('question.import') }}" class="btn btn-primary mt-2">  <i class="ti-plus"></i> رفع ملف الأسئلة</a>
                         </div>
                     </div>
                 </div>

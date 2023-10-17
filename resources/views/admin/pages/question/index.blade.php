@@ -13,7 +13,17 @@
                         </div>
                         <div class="col-sm-5">
                             <a href="{{ route('question.upsert') }}" class="btn btn-primary mt-2">  <i class="ti-plus"></i> اضف سؤال</a>
-                            <a href="{{ route('question.import') }}" class="btn btn-primary mt-2">  <i class="ti-plus"></i> رفع ملف الأسئلة</a>
+                            <form action="{{ route('question.import') }}"
+                                method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file"
+                                    class="form-control">
+                                <br>
+                                <button class="btn btn-success">
+                                    رفع ملف الأسئلة 
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,8 @@ use App\Models\UserResult;
 use App\Models\UserTest;
 use Auth;
 use Illuminate\Http\Request;
+use App\Imports\ImportQuestion;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionController extends Controller
 {
@@ -106,6 +108,12 @@ class QuestionController extends Controller
     public function modify(QuestionRequest $request)
     {
         return Question::upsertInstance($request);
+    }
+
+    public function import(Request $request){
+        Excel::import(new ImportQuestion, $request->file('file')->store('files'));
+        
+        return redirect()->back();
     }
 
     public function destroy(Question $question)

@@ -13,7 +13,7 @@
                                     مراجعة للأسئلة الموضوعية
                                 </h1>
                                 <div class="button-wrapper">
-                                    <a href="{{ route('exam.test') }}" class="btn-tenant fill-tenant">الاختبار</a>
+                                    <a href="{{ route('exam.test') }}" class="btn-tenant fill-tenant">إبدأ</a>
                                 </div>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                                     اختبار تجريبي للأسئلة الموضوعية
                                 </h1>
                                 <div class="button-wrapper">
-                                    <a href="{{ route('exam') }}" class="btn-tenant fill-tenant">الاختبار</a>
+                                    <a href="{{ route('exam') }}" class="btn-tenant fill-tenant">إبدأ</a>
                                 </div>
                             </div>
                         </div>

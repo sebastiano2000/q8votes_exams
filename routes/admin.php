@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserFavController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +82,15 @@ Route::group(['prefix' => 'question'],function(){
     Route::post('/delete/{question}',[QuestionController::class,'destroy'])->name('question.delete');
     Route::post('/import',[QuestionController::class,'import'])->name('question.import');
 });
+
+Route::group(['prefix' => 'subject'],function(){
+    Route::get('/', [SubjectController::class,"index"])->name('subject');
+    Route::get('/upsert/{subject?}',[SubjectController::class,'upsert'])->name('subject.upsert');
+    Route::get('/filter',[SubjectController::class,'filter'])->name('subject.filter');
+    Route::post('/modify',[SubjectController::class,'modify'])->name('subject.modify');
+    Route::post('/delete/{subject}',[SubjectController::class,'destroy'])->name('subject.delete');
+});
+
 
 Route::group(['prefix' => 'profile'],function(){
     Route::get('/', [ProfileController::class, "index"])->name('profile');

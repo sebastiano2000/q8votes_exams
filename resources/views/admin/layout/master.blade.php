@@ -96,6 +96,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('subject') }}">
+                                <i class="ti-control-record text-success"></i>
+                                المادة
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('question') }}">
                                 <i class="ti-control-record text-success"></i>
                                 الاسئلة

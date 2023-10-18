@@ -25,33 +25,30 @@
                                             <button class="btn btn-primary mx-2 btn-search">{{ __('pages.search') }}</button>
                                         </div>
                                     </form>
-                                    <table id="example" class=" display  table table-hover table-center mb-0"  filter="{{ route('question.filter') }}">
+                                    <table id="example2" class=" display  table table-hover table-center mb-0"  filter="{{ route('question.filter') }}">
                                         <thead>
                                             <tr>
                                                 <th>رأس السؤال</th>
-                                                <!-- <th class="text-end">{{ __('pages.actions') }}</th> -->
+                                                <th class="text-end">{{ __('pages.actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($questions as $question)
                                                 <tr class="record">
                                                     <td>{{ $question->title }}</td>
-                                                    <!-- <td class="text-end">
+                                                    <td class="text-end">
                                                         <div class="actions">
-                                                            <a href="{{ route('question.upsert',['question' => $question->id]) }}" class="btn btn-sm bg-success-light" >
-                                                                <i class="ti-pencil"></i> {{ __('pages.edit') }}
-                                                            </a>
-                                                            <a data-bs-toggle="modal" href="#" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('question.delete',['question' => $question->id])}}">
-                                                                <i class="ti-trash"></i> {{ __('pages.delete') }}
+                                                            <a href="{{ route('question.exam', ['question' => $question->id]) }}" class="btn btn-sm bg-success-light" >
+                                                                <i class="ti-book"></i> امتحن السؤال
                                                             </a>
                                                         </div>
-                                                    </td> -->
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>  
                                     </table>
                                 </div>
-                                <nav aria-label="Page navigation example" class="mt-2">
+                                <nav aria-label="Page navigation example2" class="mt-2">
                                     <ul class="pagination">
                                         @for($i = 1; $i <= $questions->lastPage(); $i++)
                                             <li class="page-item">

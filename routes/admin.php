@@ -42,6 +42,7 @@ Route::group(['prefix' => 'user_test'],function(){
 Route::group(['prefix' => 'user_list'],function(){
     Route::post('/add/list', [UserFavController::class, "saveList"])->name('save.list');
     Route::get('/index', [UserFavController::class,"index"])->name('question.fav');
+    Route::get('/exam/{question}', [UserFavController::class,"exam"])->name('question.exam');
 });
 
 Route::group(['prefix' => 'result'],function(){

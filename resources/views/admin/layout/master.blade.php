@@ -115,6 +115,12 @@
                         </li>
                         @else
                         <li>
+                            <a href="{{ route('home') }}">
+                                <i class="ti-control-record text-success"></i>
+                                الأسئلة الموضوعية
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('question.fav') }}">
                                 <i class="ti-control-record text-success"></i>
                                 <span>الاسئلة المفضلة</span>

@@ -27,4 +27,16 @@ class UserFavController extends Controller
         else 
             abort(404);
     }
+
+    public function exam(Request $request)
+    {
+        if(!Auth::user()->isAdmin()){
+            $array_question = Question::where('id', $request->question)->with('answers')->get();
+                    
+            return view('admin.pages.favs.exam')
+                ->with('slice', $array_question);
+        }
+        else 
+            abort(404);
+    }
 }

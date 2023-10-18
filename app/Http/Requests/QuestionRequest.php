@@ -23,10 +23,10 @@ class QuestionRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'title.0' => 'required|min:3',
-            'title.1' => 'required|min:3',
-            'title.2' => 'required|min:3',
-            'title.3' => 'required|min:3',
+            'title.0' => 'required',
+            'title.1' => 'required',
+            'title.2' => 'required',
+            'title.3' => 'required',
         ];
     }
 

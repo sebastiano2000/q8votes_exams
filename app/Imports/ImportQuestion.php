@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Answer;
 use App\Models\Question;
+use App\Models\Subject;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ImportQuestion implements ToModel
@@ -15,32 +16,32 @@ class ImportQuestion implements ToModel
     */
     public function model(array $row)
     {
-        $question = Question::create(
+        $subject = Subject::updateorCreate(
             [
-                'title' => $row[0],
+                'name' => trim($row[5]),
+            ],
+            [
+                'name' => trim($row[5]),
             ]
         );
 
-        $random = rand(1,4);
+        $question = Question::create(
+            [
+                'title' => $row[0],
+                'subject_id' => $subject->id,
+            ]
+        );
 
         $answers=[];
         $answers[]= $answer_1=$row[1];
-        //false answer
         $answers[]=$answer_2=$row[2];
-        //false answer
         $answers[]=$answer_3=$row[3];
-        //false answer
         $answers[]=$answer_4=$row[4];
 
-        //to rearrange the array order 
         shuffle($answers);
 
         for ($i=0;$i<count($answers);$i++){
-        //that mean the true answer
-
-        //$answer_1 is the true answer
-            if(trim($answers[$i])==trim($answer_1))
-            {
+            if(trim($answers[$i])==trim($answer_1)){
                 Answer::create(
                     [
                         'question_id' => $question->id,
@@ -49,7 +50,6 @@ class ImportQuestion implements ToModel
                     ]
                 );
             }
-
             else{
                 Answer::create(
                     [
@@ -60,38 +60,6 @@ class ImportQuestion implements ToModel
                 );
             }
         }
-
-        // Answer::create(
-        //     [
-        //         'question_id' => $question->id,
-        //         'title' => $row[1],
-        //         'status' => 1,
-        //     ]
-        // );
-
-        // Answer::create(
-        //     [
-        //         'question_id' => $question->id,
-        //         'title' => $row[2],
-        //         'status' => 0,
-        //     ]
-        // );
-
-        // Answer::create(
-        //     [
-        //         'question_id' => $question->id,
-        //         'title' => $row[3],
-        //         'status' => 0,
-        //     ]
-        // );
-
-        // Answer::create(
-        //     [
-        //         'question_id' => $question->id,
-        //         'title' => $row[4],
-        //         'status' => 0,
-        //     ]
-        // );
 
         return $question;
     }

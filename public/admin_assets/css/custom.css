@@ -1559,7 +1559,7 @@ button.bg-danger:hover {
 }
 
 .table-responsive {
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 /* Avatar */
@@ -6157,7 +6157,7 @@ label.active {
     /* background: linear-gradient(to right, #01a9f3, #ecf7ff); */
 }
 
-#btn {
+#btn, #backbtn {
     box-shadow: 3px 15px 20px rgb(0 0 0 / 4%);
     border-radius: 50px;
     background: rgb(1 169 243);
@@ -6174,7 +6174,7 @@ label.active {
     -webkit-tap-highlight-color: transparent;
 }
 
-#btn:hover {
+#btn:hover, #backbtn:hover {
     box-shadow: 3px 15px 20px rgb(0 0 0 / 4%);
     background: rgba(255, 255, 255, 0.671);
     color: rgba(0, 0, 0, 0.749);

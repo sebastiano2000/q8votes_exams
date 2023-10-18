@@ -50,29 +50,47 @@ class QuestionController extends Controller
     public function test(Request $request)
     {
         $page = !empty($request->input('page')) ? $request->input('page') : '1';
-        $count = Question::count();
-        
-        $questions = Question::inRandomOrder()->with('answers')->get();
-        $slice = $questions->first();
-
-        $page = !empty($request->input('page')) ? $request->input('page') : '1';
         $perpage = '1';
         $offset = ($page - 1) * $perpage;
-
         $count = Question::count();
-        $array_questions = UserTest::where('user_id', Auth::user()->id)->pluck('question_id');
+        
+        $back_questions = session()->get('test.data') ?? [];
 
-        if($array_questions){
-            $question = Question::whereNotIn('id', $array_questions)->inRandomOrder()->with('answers')->take(1)->first();
+        // if(count($back_questions) > 10){
+        //     array_shift($back_questions);
+        // }
+
+        $temp = -1;
+
+        foreach($back_questions as $key => $back_question){
+            if($back_question[$offset] ?? null){
+                $temp = $key;
+            }
+        }
+
+        if($back_questions && $temp != -1){
+            $question = Question::where('id', $back_questions[$temp][$offset]['id'])->inRandomOrder()->with('answers')->take(1)->first();
         }
         else {
-            $question = Question::inRandomOrder()->with('answers')->take(1)->get();
+            $array_questions = UserTest::where('user_id', Auth::user()->id)->pluck('question_id');
+
+            if($array_questions){
+                $question = Question::whereNotIn('id', $array_questions)->inRandomOrder()->with('answers')->take(1)->first();
+            }
+            else {
+                $question = Question::inRandomOrder()->with('answers')->take(1)->get();
+            }
+
+            if(!$question){
+                UserTest::where('user_id', Auth::user()->id)->delete();
+                $question = Question::inRandomOrder()->with('answers')->take(1)->get();
+            }
+
+            $offset_array[$offset] = [ 'id' => $question->id ];
+            array_push($back_questions, $offset_array);
         }
 
-        if(!$question){
-            UserTest::where('user_id', Auth::user()->id)->delete();
-            $question = Question::inRandomOrder()->with('answers')->take(1)->get();
-        }
+        session()->put('test.data', $back_questions);
 
         return view('admin.pages.exam.test')
             ->with('slice', $question)

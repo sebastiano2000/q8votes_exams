@@ -12,26 +12,26 @@
             <div class="text-container">
                 <h3>اختبار تجريبي للأسئلة الموضوعية</h3>
                 <p>السؤال {{ $page }} من {{ $total }}</p>
-                <p onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
+                <p style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
             </div>
             <form>
                 <div class="quiz-options">
-                        @foreach($slice->first()->answers as $key => $answer)
-                            <input type="radio" question_id="{{$slice->first()->id}}" answer_id="{{$answer->id}}" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->first()->id}}" required>
-                            <label class="radio-label" for="one-{{$key + 1}}" answer_id="{{$answer->id}}">
-                                <span class="alphabet">
-                                    @if($key == 0)
-                                        ا
-                                    @elseif($key == 1)
-                                        ب
-                                    @elseif($key == 2)
-                                        ج
-                                    @elseif($key == 3)
-                                        د
-                                    @endif
-                                </span> {{ $answer->title }}
-                            </label>
-                        @endforeach
+                    @foreach($slice->first()->answers as $key => $answer)
+                        <input type="radio" question_id="{{$slice->first()->id}}" answer_id="{{$answer->id}}" class="input-radio" number="one-{{$key}}" id="one-{{$key + 1}}" name="answer-{{$slice->first()->id}}" required>
+                        <label class="radio-label" for="one-{{$key + 1}}" answer_id="{{$answer->id}}">
+                            <span class="alphabet">
+                                @if($key == 0)
+                                    ا
+                                @elseif($key == 1)
+                                    ب
+                                @elseif($key == 2)
+                                    ج
+                                @elseif($key == 3)
+                                    د
+                                @endif
+                            </span> {{ $answer->title }}
+                        </label>
+                    @endforeach
                 </div>
                 <div class="d-flex">
                     @if($page < $total)
@@ -45,7 +45,44 @@
                 </div>
             </form>
         </main>
+        <a 
+            id="btn" 
+            class="back-btn" 
+            style="max-width: 150px !important; min-width: 150px !important;"
+            href="#" onclick="report(this)"
+            data-target="#report"
+            data-toggle="modal"
+            data-id="{{$slice->first()->id}}"
+        >
+            ابلاغ  
+        </a>
     </section>
+    <div id="report" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modelHeading">ابلاغ خطاء في السؤال</h4>
+                    <span class="button" data-dismiss="modal" aria-label="Close">   <i class="ti-close"></i> </span>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('report.modify') }}" class="ajax-form" swalOnSuccess="{{ __('pages.sucessdata') }}" title="{{ __('pages.opps') }}" swalOnFail="{{ __('pages.wrongdata') }}">
+                        @csrf
+                        <input type="hidden" name="question_id" id="question_id">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">{{ __('pages.note') }}</label>
+                            <div class="col-sm-12">
+                                <textarea type="text" class="form-control" id="notes" name="notes" placeholder="{{ __('pages.note') }}" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" id="saveBtn" value="create">{{ __('pages.submit') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
 </div>
 @endsection
 
@@ -91,7 +128,15 @@
                 success: (data) => {}
             });
         }
-    })
+    });
+
+    function report(el) {
+        var link = $(el)
+        var modal = $("#report")
+        var question_id = link.data('id')
+
+        modal.find('#question_id').val(question_id);
+    }
 
     $('.input-radio').on('change', function(){
         let number = 0;

@@ -10,8 +10,7 @@
             </div>
             <div class="text-container">
                 <h3>مراجعة للأسئلة الموضوعية</h3>
-                <p>السؤال {{ $page }}</p>
-                <p onmousedown="return false" onselectstart="return false">{{$slice->title}}</p>
+                <p style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->title}}</p>
             </div>
             <form>
                 <div class="quiz-options">
@@ -37,7 +36,7 @@
                         @php
                             $prev = $page - 1;
                         @endphp
-                    <a id="btn" type="submit" href="test?page={{ $prev }}">السابق</a>
+                    <a id="backbtn" type="submit" href="test?page={{ $prev }}">السابق</a>
                     @endif
                     @php
                         $pageno = $page + 1;
@@ -46,10 +45,47 @@
                 </div>
             </form>
         </main>
-        <a id="btn" class="back-btn" style="min-width: 230px !important;" href="{{ route('home') }}">
+        <a id="btn" class="back-btn" style="width: 230px !important;" href="{{ route('home') }}">
             العودة الي الصفحة الرئيسية
         </a>
+        <a 
+            id="btn" 
+            class="report-btn mt-3" 
+            style="max-width: 150px !important; min-width: 150px !important;"
+            href="#" onclick="report(this)"
+            data-target="#report"
+            data-toggle="modal"
+            data-id="{{$slice->id}}"
+        >
+            ابلاغ  
+        </a>
     </section>
+    <div id="report" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modelHeading">ابلاغ خطاء في السؤال</h4>
+                    <span class="button" data-dismiss="modal" aria-label="Close">   <i class="ti-close"></i> </span>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('report.modify') }}" class="ajax-form" swalOnSuccess="{{ __('pages.sucessdata') }}" title="{{ __('pages.opps') }}" swalOnFail="{{ __('pages.wrongdata') }}">
+                        @csrf
+                        <input type="hidden" name="question_id" id="question_id">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">{{ __('pages.note') }}</label>
+                            <div class="col-sm-12">
+                                <textarea type="text" class="form-control" id="notes" name="notes" placeholder="{{ __('pages.note') }}" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" id="saveBtn" value="create">{{ __('pages.submit') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
 </div>
 @endsection
 
@@ -95,7 +131,15 @@
                 success: (data) => {}
             });
         }
-    })
+    });
+
+    function report(el) {
+        var link = $(el)
+        var modal = $("#report")
+        var question_id = link.data('id')
+
+        modal.find('#question_id').val(question_id);
+    }
 
     $('.input-radio').on('change', function(){
         let number = 0;

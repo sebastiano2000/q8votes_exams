@@ -108,6 +108,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('report') }}">
+                                <i class="ti-control-record text-success"></i>
+                                الابلاغات
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('log') }}">
                                 <i class="ti-control-record text-success"></i>
                                 <span>سجل العمليات</span>
@@ -117,7 +123,19 @@
                         <li>
                             <a href="{{ route('home') }}">
                                 <i class="ti-control-record text-success"></i>
-                                الأسئلة الموضوعية
+                                الصفحة الرئسية
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('exam') }}">
+                                <i class="ti-control-record text-success"></i>
+                                اختبار تجريبي للأسئلة الموضوعية
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('exam.test') }}">
+                                <i class="ti-control-record text-success"></i>
+                                مراجعة للأسئلة الموضوعية
                             </a>
                         </li>
                         <li>
@@ -344,8 +362,13 @@
             url: "/verified",
             method: "post"
         });
-    </script>
 
+        $('body').bind('copy',function(e){
+            e.preventDefault();
+
+            return false;
+        });
+    </script>
     @yield('js')
 </body>
 

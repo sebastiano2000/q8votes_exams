@@ -4,9 +4,14 @@
       <!-- QUIZ ONE -->
     <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px;">
         <main class="question-main">
+            <div class="{{in_array($slice->first()->id, Auth::user()->list->pluck('question_id')->toArray()) ? 'click active active-2 active-3' : 'click' }}" question_id="{{$slice->first()->id}}" style="float: left;">
+                <span class="{{in_array($slice->first()->id, Auth::user()->list->pluck('question_id')->toArray()) ? 'star ti ti-star test' : 'star ti ti-star' }}"></span>
+                <div class="ring"></div>
+                <div class="ring2"></div>
+            </div>
             <div class="text-container">
                 <h3>اختبار للأسئلة المفضلة</h3>
-                <p onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
+                <p style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
             </div>
             <form>
                 <div class="quiz-options">
@@ -38,6 +43,48 @@
 
 @section('js')
 <script>
+    $('.click').click(function() {
+        if ($('.star').hasClass("test")) {
+                $('.click').removeClass('active')
+            setTimeout(function() {
+                $('.click').removeClass('active-2')
+            }, 30)
+                $('.click').removeClass('active-3')
+            setTimeout(function() {
+                $('.star').removeClass('test')
+            }, 15)
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                url: '{{ route("save.list") }}',
+                method: 'post',
+                data: {question_id: $(this).attr("question_id"), result: false},
+                success: (data) => {}
+            });
+        } else {
+            $('.click').addClass('active')
+            $('.click').addClass('active-2')
+            setTimeout(function() {
+                $('.star').addClass('test')
+            }, 150)
+            setTimeout(function() {
+                $('.click').addClass('active-3')
+            }, 150)
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': '{{csrf_token()}}'
+                },
+                url: '{{ route("save.list") }}',
+                method: 'post',
+                data: {question_id: $(this).attr("question_id"), result: true},
+                success: (data) => {}
+            });
+        }
+    })
+
     $('.input-radio').on('change', function(){
         let number = 0;
         for(let label of document.querySelectorAll("label")){

@@ -10,6 +10,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserFavController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,13 @@ Route::group(['prefix' => '/'],function(){
 Route::group(['prefix' => 'exam'],function(){
     Route::get('/', [QuestionController::class, "exam"])->name('exam');
     Route::get('/test', [QuestionController::class, "test"])->name('exam.test');
+});
+
+Route::group(['prefix' => 'report'],function(){
+    Route::get('/', [ReportController::class,"index"])->name('report');
+    Route::get('/filter',[ReportController::class,'filter'])->name('report.filter');
+    Route::post('/modify',[ReportController::class,'modify'])->name('report.modify');
+    Route::post('/delete/{report}',[ReportController::class,'destroy'])->name('report.delete');
 });
 
 Route::group(['prefix' => 'user_result'],function(){

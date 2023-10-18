@@ -9,6 +9,7 @@ use App\Models\UserTest;
 use Auth;
 use Illuminate\Http\Request;
 use App\Imports\ImportQuestion;
+use App\Models\Subject;
 use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionController extends Controller
@@ -117,6 +118,7 @@ class QuestionController extends Controller
     {
         if(Auth::user()->isAdmin())
             return view('admin.pages.question.upsert',[
+                'subjects' => Subject::all(),
                 'question' => $question,
             ]);
         else 

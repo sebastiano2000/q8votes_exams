@@ -28,6 +28,16 @@
                                     <div class="service-fields mb-3">
                                         <div class="form-group">
                                             <div class="row">
+                                            
+                                                <div class="col-md-6">
+                                                    <label class="mb-2">اسم المادة</label>
+                                                    <select class="form-control" name="subject_id">
+                                                        @foreach($subjects as $subject)
+                                                            <option value="{{$subject->id}}" @if($subject->id == $question->subject_id) selected @endif>{{$subject->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <p class="error error_name"></p>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <label class="mb-2">رأس السؤال</label>
                                                     <input class="form-control" type="text" name="name" placeholder="{{ __('pages.name') }}" value="@isset($question->id){{$question->title}}@endisset">

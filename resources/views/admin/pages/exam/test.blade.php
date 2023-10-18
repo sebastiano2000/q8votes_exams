@@ -41,7 +41,7 @@
                     @php
                         $pageno = $page + 1;
                     @endphp
-                    <a id="btn" type="submit" href="test?page={{ $pageno }}">التالي</a>
+                    <a id="btn" type="submit" href="test?subject_id={{$slice->subject_id}}&page={{ $pageno }}">التالي</a>
                 </div>
             </form>
         </main>

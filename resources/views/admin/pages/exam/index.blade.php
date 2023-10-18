@@ -38,7 +38,7 @@
                         @php
                             $pageno = $page + 1; 
                         @endphp
-                        <a id="btn" type="submit" href="exam?page={{ $pageno }}">التالي</a>
+                        <a id="btn" type="submit" href="exam?subject_id={{$slice->first()->subject_id}}&page={{ $pageno }}">التالي</a>
                     @else
                         <a id="btn" type="submit" href="{{route('save.result')}}">انهاء الاختبار</a>
                     @endif

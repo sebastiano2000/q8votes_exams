@@ -25,16 +25,22 @@ class QuestionController extends Controller
         $perpage = '1';
         $offset = ($page - 1) * $perpage;
 
-        $count = Question::count();
-        $total = $count > 30 ? 30 : $count;
+        $count = Question::where('subject_id', $request->subject_id)->count();
+        $total = $count > 30 ? Subject::where('subject_id', $request->subject_id)->questions_count : $count;
 
         $array_questions = session()->get('exam.data');
 
-        if ($array_questions) {
-            $array_question = Question::whereNotIn('id', $array_questions->pluck('id'))->inRandomOrder()->with('answers')->take(1)->first();
-            $array_questions->push($array_question);
-        } else {
-            $array_questions = Question::inRandomOrder()->with('answers')->take(1)->get();
+        if($array_questions){
+            $array_question = Question::whereNotIn('id', $array_questions->pluck('id'))->where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->first();
+            if($array_question){
+                $array_questions->push($array_question);
+            }
+            else {
+                $array_questions = Question::inRandomOrder()->where('subject_id', $request->subject_id)->with('answers')->take(1)->get();
+            }
+        }
+        else {
+            $array_questions = Question::inRandomOrder()->where('subject_id', $request->subject_id)->with('answers')->take(1)->get();
         }
 
         session()->put('exam.data', $array_questions);
@@ -68,20 +74,43 @@ class QuestionController extends Controller
             }
         }
 
-        if ($back_questions && $temp != -1) {
-            $question = Question::where('id', $back_questions[$temp][$offset]['id'])->inRandomOrder()->with('answers')->take(1)->first();
-        } else {
+        if($back_questions && $temp != -1){
+            $question = Question::where('id', $back_questions[$temp][$offset]['id'])->where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->first();
+
+            if(!$question){
+                $array_questions = UserTest::where('user_id', Auth::user()->id)->pluck('question_id');
+
+                if($array_questions){
+                    $question = Question::whereNotIn('id', $array_questions)->where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->first();
+                }
+                else {
+                    $question = Question::where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->get();
+                }
+
+                if(!$question){
+                    UserTest::where('user_id', Auth::user()->id)->delete();
+                    $question = Question::where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->get();
+                }
+
+                $offset_array[$offset] = [ 'id' => $question->id ];
+                array_push($back_questions, $offset_array);
+
+                session()->put('test.data', $back_questions);
+            }
+        }
+        else {
             $array_questions = UserTest::where('user_id', Auth::user()->id)->pluck('question_id');
 
-            if ($array_questions) {
-                $question = Question::whereNotIn('id', $array_questions)->inRandomOrder()->with('answers')->take(1)->first();
-            } else {
-                $question = Question::inRandomOrder()->with('answers')->take(1)->get();
+            if($array_questions){
+                $question = Question::whereNotIn('id', $array_questions)->where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->first();
+            }
+            else {
+                $question = Question::where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->get();
             }
 
             if (!$question) {
                 UserTest::where('user_id', Auth::user()->id)->delete();
-                $question = Question::inRandomOrder()->with('answers')->take(1)->get();
+                $question = Question::where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->get();
             }
 
             $offset_array[$offset] = ['id' => $question->id];

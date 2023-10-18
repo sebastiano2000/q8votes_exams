@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-
     public function index(Request $request)
     {
         if (Auth::user()->isAdmin()) {

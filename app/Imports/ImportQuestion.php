@@ -4,44 +4,42 @@ namespace App\Imports;
 
 use App\Models\Answer;
 use App\Models\Question;
-use App\Models\Subject;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ImportQuestion implements ToModel
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    private $subjectId;
+
+    public function __construct($subjectId)
+    {
+        $this->subjectId = $subjectId;
+    }
+
     public function model(array $row)
     {
-        $subject = Subject::updateorCreate(
-            [
-                'name' => trim($row[5]),
-            ],
-            [
-                'name' => trim($row[5]),
-            ]
-        );
 
         $question = Question::create(
             [
                 'title' => $row[0],
-                'subject_id' => $subject->id,
+                'subject_id' => $this->subjectId,
             ]
         );
 
-        $answers=[];
-        $answers[]= $answer_1=$row[1];
-        $answers[]=$answer_2=$row[2];
-        $answers[]=$answer_3=$row[3];
-        $answers[]=$answer_4=$row[4];
+        $answers = [];
+        $answers[] = $answer_1 = $row[1];
+        $answers[] = $answer_2 = $row[2];
+        $answers[] = $answer_3 = $row[3];
+        $answers[] = $answer_4 = $row[4];
 
         shuffle($answers);
 
-        for ($i=0;$i<count($answers);$i++){
-            if(trim($answers[$i])==trim($answer_1)){
+        for ($i = 0; $i < count($answers); $i++) {
+            if (trim($answers[$i]) == trim($answer_1)) {
                 Answer::create(
                     [
                         'question_id' => $question->id,
@@ -49,8 +47,7 @@ class ImportQuestion implements ToModel
                         'status' => 1,
                     ]
                 );
-            }
-            else{
+            } else {
                 Answer::create(
                     [
                         'question_id' => $question->id,

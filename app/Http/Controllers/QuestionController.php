@@ -16,7 +16,7 @@ class QuestionController extends Controller
 {
     public function exam(Request $request)
     {
-        if(Auth::user()->finish){
+        if (Auth::user()->finish) {
             Auth::user()->update(['finish' => 0]);
             UserResult::where('user_id', Auth::user()->id)->delete();
         }
@@ -30,18 +30,17 @@ class QuestionController extends Controller
 
         $array_questions = session()->get('exam.data');
 
-        if($array_questions){
+        if ($array_questions) {
             $array_question = Question::whereNotIn('id', $array_questions->pluck('id'))->inRandomOrder()->with('answers')->take(1)->first();
             $array_questions->push($array_question);
-        }
-        else {
+        } else {
             $array_questions = Question::inRandomOrder()->with('answers')->take(1)->get();
         }
 
         session()->put('exam.data', $array_questions);
 
         $slice = $array_questions->slice($offset, 1);
-        
+
         return view('admin.pages.exam.index')
             ->with('slice', $slice)
             ->with('page', $page)
@@ -54,7 +53,7 @@ class QuestionController extends Controller
         $perpage = '1';
         $offset = ($page - 1) * $perpage;
         $count = Question::count();
-        
+
         $back_questions = session()->get('test.data') ?? [];
 
         // if(count($back_questions) > 10){
@@ -63,31 +62,29 @@ class QuestionController extends Controller
 
         $temp = -1;
 
-        foreach($back_questions as $key => $back_question){
-            if($back_question[$offset] ?? null){
+        foreach ($back_questions as $key => $back_question) {
+            if ($back_question[$offset] ?? null) {
                 $temp = $key;
             }
         }
 
-        if($back_questions && $temp != -1){
+        if ($back_questions && $temp != -1) {
             $question = Question::where('id', $back_questions[$temp][$offset]['id'])->inRandomOrder()->with('answers')->take(1)->first();
-        }
-        else {
+        } else {
             $array_questions = UserTest::where('user_id', Auth::user()->id)->pluck('question_id');
 
-            if($array_questions){
+            if ($array_questions) {
                 $question = Question::whereNotIn('id', $array_questions)->inRandomOrder()->with('answers')->take(1)->first();
-            }
-            else {
+            } else {
                 $question = Question::inRandomOrder()->with('answers')->take(1)->get();
             }
 
-            if(!$question){
+            if (!$question) {
                 UserTest::where('user_id', Auth::user()->id)->delete();
                 $question = Question::inRandomOrder()->with('answers')->take(1)->get();
             }
 
-            $offset_array[$offset] = [ 'id' => $question->id ];
+            $offset_array[$offset] = ['id' => $question->id];
             array_push($back_questions, $offset_array);
         }
 
@@ -101,12 +98,14 @@ class QuestionController extends Controller
 
     public function index(Request $request)
     {
-        if(Auth::user()->isAdmin())
-            return view('admin.pages.question.index',[
+        if (Auth::user()->isAdmin()) {
+            return view('admin.pages.question.index', [
                 'questions' => Question::filter($request->all())->paginate(50),
+                'subjects' => Subject::all(),
             ]);
-        else 
+        } else {
             abort(404);
+        }
     }
 
     /**
@@ -116,13 +115,14 @@ class QuestionController extends Controller
      */
     public function upsert(Question $question)
     {
-        if(Auth::user()->isAdmin())
-            return view('admin.pages.question.upsert',[
+        if (Auth::user()->isAdmin()) {
+            return view('admin.pages.question.upsert', [
                 'subjects' => Subject::all(),
                 'question' => $question,
             ]);
-        else 
+        } else {
             abort(404);
+        }
     }
 
     public function modify(QuestionRequest $request)
@@ -130,9 +130,10 @@ class QuestionController extends Controller
         return Question::upsertInstance($request);
     }
 
-    public function import(Request $request){
-        Excel::import(new ImportQuestion, $request->file('file')->store('files'));
-        
+    public function import(Request $request)
+    {
+        Excel::import(new ImportQuestion($request->subject_id), $request->file('file')->store('files'));
+
         return redirect()->back();
     }
 
@@ -143,7 +144,7 @@ class QuestionController extends Controller
 
     public function filter(Request $request)
     {
-        return view('admin.pages.question.index',[
+        return view('admin.pages.question.index', [
             'questions' => Question::filter($request->all())->paginate(50)
         ]);
     }

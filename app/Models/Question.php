@@ -18,6 +18,7 @@ class Question extends Model
      */
     protected $fillable = [
         'title',
+        'subject_id'
     ];
 
     static function upsertInstance($request)
@@ -28,6 +29,7 @@ class Question extends Model
             ],
             [
                 'title' => $request->name,
+                'subject_id' => $request->subject_id,
             ]
         );
 

@@ -45,6 +45,7 @@
                                     <table id="example" class=" display  table table-hover table-center mb-0"  filter="{{ route('question.filter') }}">
                                         <thead>
                                             <tr>
+                                                <th>اسم المادة</th>
                                                 <th>رأس السؤال</th>
                                                 <th class="text-end">{{ __('pages.actions') }}</th>
                                             </tr>
@@ -52,6 +53,7 @@
                                         <tbody>
                                             @foreach($questions as $question)
                                                 <tr class="record">
+                                                    <td>{{ $question->subject->name }}</td>
                                                     <td>{{ $question->title }}</td>
                                                     <td class="text-end">
                                                         <div class="actions">

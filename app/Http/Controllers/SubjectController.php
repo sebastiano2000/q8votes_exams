@@ -40,4 +40,9 @@ class SubjectController extends Controller
     {
         return Subject::upsertInstance($request);
     }
+
+    public function destroy(Subject $subject)
+    {
+        return $subject->deleteInstance();
+    }
 }

@@ -33,7 +33,7 @@
                                     title="{{ __('pages.opps') }}" swalOnFail="{{ __('pages.wrongdata') }}"
                                     redirect="{{ route('subject') }}">
                                     @csrf
-
+                                    <input type="hidden" name="id" value="@isset($subject->id){{$subject->id}}@endisset">
                                     <div class="col-md-6">
                                         <label class="mb-2">
                                             اسم المادة

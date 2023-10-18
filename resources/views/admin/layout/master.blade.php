@@ -113,6 +113,13 @@
                                 <span>سجل العمليات</span>
                             </a>
                         </li>
+                        @else
+                        <li>
+                            <a href="{{ route('question.fav') }}">
+                                <i class="ti-control-record text-success"></i>
+                                <span>الاسئلة المفضلة</span>
+                            </a>
+                        </li>
                         @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"

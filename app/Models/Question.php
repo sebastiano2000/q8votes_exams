@@ -57,11 +57,17 @@ class Question extends Model
 
     public function deleteInstance()
     {
+        $this->answers()->delete();
         return $this->delete();
     }
 
     public function answers()
     {
         return $this->hasMany(Answer::class);
+    }
+    
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class, 'subject_id');
     }
 }

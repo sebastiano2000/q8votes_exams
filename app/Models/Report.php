@@ -37,7 +37,7 @@ class Report extends Model
     public function scopeFilter($query, $request)
     {
         if (isset($request['name'])) {
-            $query->whereHas('questions', function($query) use($request){
+            $query->whereHas('question', function($query) use($request){
                 $query->where('title', 'like', '%' . $request['name'] . '%');
             })->get();
         }

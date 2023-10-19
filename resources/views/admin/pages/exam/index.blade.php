@@ -2,7 +2,7 @@
 @section('content')
 <div class="main-wrapper">
       <!-- QUIZ ONE -->
-    <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px;">
+    <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px; overflow-y: auto;">
         <main class="question-main">
             <div class="{{in_array($slice->first()->id, Auth::user()->list->pluck('question_id')->toArray()) ? 'click active active-2 active-3' : 'click' }}" question_id="{{$slice->first()->id}}" style="float: left;">
                 <span class="{{in_array($slice->first()->id, Auth::user()->list->pluck('question_id')->toArray()) ? 'star ti ti-star test' : 'star ti ti-star' }}"></span>
@@ -12,7 +12,7 @@
             <div class="text-container">
                 <h3>اختبار تجريبي للأسئلة الموضوعية</h3>
                 <p>السؤال {{ $page }} من {{ $total }}</p>
-                <p style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
+                <p class="question" style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
             </div>
             <form>
                 <div class="quiz-options">
@@ -172,6 +172,12 @@
                 $(`.radio-label[answer_id='${data}']`).removeClass('false_input').addClass('true_input')
             }
         });
+    });
+
+    $(document).ready(function(){
+        if(/[A-Za-z]/.test($('.question').text())){
+            $('.question').css({ direction: 'ltr' });
+        }
     });
 </script>
 @endsection

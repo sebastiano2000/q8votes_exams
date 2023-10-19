@@ -30,8 +30,9 @@ class QuestionController extends Controller
 
         $array_questions = session()->get('exam.data');
 
-        if($array_questions){
+        if($array_questions && $array_questions->where('id', $array_questions->pluck('id')->first())->where('subject_id', $request->subject_id)->first()){
             $array_question = Question::whereNotIn('id', $array_questions->pluck('id'))->where('subject_id', $request->subject_id)->inRandomOrder()->with('answers')->take(1)->first();
+
             if($array_question){
                 $array_questions->push($array_question);
             }
@@ -174,7 +175,8 @@ class QuestionController extends Controller
     public function filter(Request $request)
     {
         return view('admin.pages.question.index', [
-            'questions' => Question::filter($request->all())->paginate(50)
+            'questions' => Question::filter($request->all())->paginate(50),
+            'subjects' => Subject::all(),
         ]);
     }
 }

@@ -9,7 +9,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-7 col-auto">
-                            <h3 class="page-title">الاسئلة</h3>
+                            <h3 class="page-title">الاسئلة المفضلة</h3>
                         </div>
                     </div>
                 </div>

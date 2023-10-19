@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 @section('content')
 <div class="main-wrapper">
-    <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px;">
+    <section class="section-1 question-card" id="section-1" style="height: 100%; margin-top: 20px; overflow-y: auto;">
         <main class="question-main">
             <div class="{{in_array($slice->id, Auth::user()->list->pluck('question_id')->toArray()) ? 'click active active-2 active-3' : 'click' }}" question_id="{{$slice->id}}" style="float: left;">
                 <span class="{{in_array($slice->id, Auth::user()->list->pluck('question_id')->toArray()) ? 'star ti ti-star test' : 'star ti ti-star' }}"></span>
@@ -10,7 +10,7 @@
             </div>
             <div class="text-container">
                 <h3>مراجعة للأسئلة الموضوعية</h3>
-                <p style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->title}}</p>
+                <p class="question" style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->title}}</p>
             </div>
             <form>
                 <div class="quiz-options">
@@ -36,7 +36,7 @@
                         @php
                             $prev = $page - 1;
                         @endphp
-                    <a id="backbtn" type="submit" href="test?page={{ $prev }}">السابق</a>
+                    <a id="backbtn" type="submit" href="test?subject_id={{$slice->subject_id}}&page={{ $prev }}">السابق</a>
                     @endif
                     @php
                         $pageno = $page + 1;
@@ -175,6 +175,12 @@
                 $(`.radio-label[answer_id='${data}']`).removeClass('false_input').addClass('true_input')
             }
         });
+    });
+
+    $(document).ready(function(){
+        if(/[A-Za-z]/.test($('.question').text())){
+            $('.question').css({ direction: 'ltr' });
+        }
     });
 </script>
 @endsection

@@ -45,6 +45,11 @@ class UserController extends Controller
         return view('auth.password-reset-user');
     }
 
+    public function modifyPassword(UserRequest2 $request)
+    {
+        return User::modifyPassword($request);
+    }
+
     public function status(Request $request)
     {
         return User::statusUpdate($request);

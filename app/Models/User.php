@@ -102,6 +102,11 @@ class User extends Authenticatable
         return $query;
     }
 
+    static function modifyPassword($request)
+    {
+        $user = User::where('id', $request->id)->update(['password' => Hash::make($request->password)]);
+    }
+
     //Roles
     public function isAdmin()
     {

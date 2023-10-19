@@ -76,14 +76,14 @@
                                                             >
                                                                 <i class="ti-pencil"></i> {{ __('pages.edit') }}  
                                                             </a>
-                                                            <!-- <a href="#" onclick="edit_password(this)"
+                                                            <a href="#" onclick="edit_password(this)"
                                                                 data-target="#edit_password"
                                                                 data-toggle="modal"
                                                                 data-id="{{$user->id}}"
                                                                 class="btn btn-sm bg-info-light"
                                                             >
                                                                 <i class="ti-pencil"></i> تعديل كلمة السر 
-                                                            </a> -->
+                                                            </a> 
                                                             @if($user->role_id != 1)
                                                                 <a data-bs-toggle="modal" href="#" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
                                                                     <i class="ti-trash"></i> {{ __('pages.delete') }}
@@ -148,7 +148,7 @@
                         </div>
                     </div> 
                 </div>
-                <!-- <div id="edit_password" class="modal fade">   
+                <div id="edit_password" class="modal fade">   
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -181,7 +181,7 @@
                             </div>
                         </div>
                     </div> 
-                </div> -->
+                </div>
             </div>
         <!-- /Page Wrapper -->
     </div>

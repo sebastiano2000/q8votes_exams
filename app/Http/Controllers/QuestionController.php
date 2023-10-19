@@ -26,7 +26,7 @@ class QuestionController extends Controller
         $offset = ($page - 1) * $perpage;
 
         $count = Question::where('subject_id', $request->subject_id)->count();
-        $total = $count > 30 ? Subject::where('subject_id', $request->subject_id)->questions_count : $count;
+        $total = $count > 30 ? Subject::where('id', $request->subject_id)->first()->questions_count : $count;
 
         $array_questions = session()->get('exam.data');
 

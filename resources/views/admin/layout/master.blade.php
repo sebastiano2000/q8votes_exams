@@ -133,23 +133,25 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('exam') }}">
-                                <i class="ti-control-record text-success"></i>
-                                اختبار تجريبي للأسئلة الموضوعية
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('exam.test') }}">
-                                <i class="ti-control-record text-success"></i>
-                                مراجعة للأسئلة الموضوعية
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('question.fav') }}">
                                 <i class="ti-control-record text-success"></i>
                                 <span>الاسئلة المفضلة</span>
                             </a>
                         </li>
+                        @foreach(\App\Models\Subject::all() as $subject)
+                            <li>
+                                <a href="{{ route('exam', ['subject_id' => $subject->id]) }}">
+                                    <i class="ti-control-record text-success"></i>
+                                    اختبار تجريبي {{$subject->name}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('exam.test', ['subject_id' => $subject->id]) }}">
+                                    <i class="ti-control-record text-success"></i>
+                                    مراجعة {{$subject->name}}
+                                </a>
+                            </li>
+                        @endforeach
                         @endif
                         <li><a class="waves-effect waves-dark" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"

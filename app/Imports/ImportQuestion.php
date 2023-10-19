@@ -23,6 +23,10 @@ class ImportQuestion implements ToModel
     public function model(array $row)
     {
 
+        if (empty($row[0])) {
+            return null;
+        }
+
         $question = Question::create(
             [
                 'title' => $row[0],

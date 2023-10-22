@@ -9,7 +9,7 @@
                 <div class="ring2"></div>
             </div>
             <div class="text-container">
-                <h3>مراجعة للأسئلة الموضوعية</h3>
+                <h3>مراجعة  {{$slice->subject->name}}</h3>
                 <p class="question" style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->title}}</p>
             </div>
             <form>

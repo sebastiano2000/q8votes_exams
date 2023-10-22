@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-
 use App\Models\User;
+use App\Models\Result;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\UserObserver;
+use App\Observers\ResultObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class);
+        Result::observe(ResultObserver::class);
         app()->setLocale('ar');
     }
 }

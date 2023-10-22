@@ -10,7 +10,7 @@
                     <div class="card text-black shadow" style="border-radius: 25px;">
                         <div class="d-flex flex-column align-items-center p-3">
                             <h1 class="text-success-result mt-3">
-                                انتهت أسئلة الاختبار التجريبي
+                                انتهت أسئلة {{$result->subject->name}} 
                             </h1>
 
                             <div class="result-container">
@@ -18,10 +18,10 @@
                                     {{$result->user->name}}
                                 </p>
                                 <p class="text-result-details">
-                                    درجتك النهائية هي : {{$result->score}} / {{$total}}
+                                    درجتك النهائية هي : {{$result->score}} /  {{$result->subject->questions_count}}
                                 </p class="text-result-details">
                                 <p class="text-result-details">
-                                    النسبة : {{round(($result->score / $total) * 100,2)}} %
+                                    النسبة : {{round(($result->score / $result->subject->questions_count) * 100,2)}} %
                                 </p class="text-result-details">
                             </div>
                         </div>

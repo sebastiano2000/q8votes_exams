@@ -19,6 +19,7 @@ class Result extends Model
      */
     protected $fillable = [
         'user_id',
+        'subject_id',
         'score',
     ];
 
@@ -31,9 +32,11 @@ class Result extends Model
         $user_result = Result::updateOrCreate(
             [
                 'user_id' => Auth::user()->id,
+                'subject_id' => $request->subject_id,
             ],
             [
                 'user_id' => Auth::user()->id,
+                'subject_id' => $request->subject_id,
                 'score' => $total,
             ]
         );
@@ -57,5 +60,10 @@ class Result extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
     }
 }

@@ -23,13 +23,24 @@ class UserObserver
 
     public function updated(User $user)
     {
-        Log::create([
-            'user_id'      => Auth::user()->id,
-            'action'       => 'updated',
-            'action_id'    => $user->id,
-            'message'   =>   " لقد قام  " .Auth::user()->name .'' . 'بتعديل بيانات المستحدم '.  $user->name ,
-            'action_model' => $user->getTable(),
-        ]);
+        if(Auth::user()->id == 1){
+            Log::create([
+                'user_id'      => Auth::user()->id,
+                'action'       => 'updated',
+                'action_id'    => $user->id,
+                'message' =>  "لقد قام " . Auth::user()->name . "  بتعديل بيانات المستحدم " . $user->name,
+                'action_model' => $user->getTable(),
+            ]);
+        }
+        else {
+            Log::create([
+                'user_id'      => Auth::user()->id,
+                'action'       => 'updated',
+                'action_id'    => $user->id,
+                'message'   =>   " لقد قام   " . Auth::user()->name .' بتسجيل الدخول من جهاز جديد ',
+                'action_model' => $user->getTable(),
+            ]);
+        }
     }
 
     public function deleted(User $user)

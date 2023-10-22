@@ -10,7 +10,7 @@
                 <div class="ring2"></div>
             </div>
             <div class="text-container">
-                <h3>اختبار تجريبي للأسئلة الموضوعية</h3>
+                <h3>اختبار تجريبي   {{$slice->first()->subject->name}}</h3>
                 <p>السؤال {{ $page }} من {{ $total }}</p>
                 <p class="question" style="font-size: 24px;" onmousedown="return false" onselectstart="return false">{{$slice->first()->title}}</p>
             </div>
@@ -40,7 +40,7 @@
                         @endphp
                         <a id="btn" type="submit" href="exam?subject_id={{$slice->first()->subject_id}}&page={{ $pageno }}">التالي</a>
                     @else
-                        <a id="btn" type="submit" href="{{route('save.result')}}">انهاء الاختبار</a>
+                        <a id="btn" type="submit" href="{{route('save.result') . '?subject_id=' . $slice->first()->subject_id}}">انهاء الاختبار</a>
                     @endif
                 </div>
             </form>

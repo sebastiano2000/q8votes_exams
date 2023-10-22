@@ -114,6 +114,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('preparator') }}">
+                                <i class="ti-control-record text-success"></i>
+                                محضرين
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('report') }}">
                                 <i class="ti-control-record text-success"></i>
                                 الابلاغات
@@ -149,6 +155,14 @@
                                 <a href="{{ route('exam.test', ['subject_id' => $subject->id]) }}">
                                     <i class="ti-control-record text-success"></i>
                                     مراجعة {{$subject->name}}
+                                </a>
+                            </li>
+                        @endforeach
+                        @foreach(\App\Models\Preparator::all() as $preparator)
+                            <li>
+                                <a href="{{ asset('/preparators/'.$preparator->picture->name) }}" target="_blank">
+                                    <i class="ti-control-record text-success"></i>
+                                    مذكرات {{$preparator->name}}
                                 </a>
                             </li>
                         @endforeach

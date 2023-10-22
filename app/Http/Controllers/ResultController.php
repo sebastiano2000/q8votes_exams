@@ -23,11 +23,9 @@ class ResultController extends Controller
     {
         $result = Result::enterTotal($request);
         $count = Question::count();
-        $total = $count > 30 ? 30 : $count;
 
         return view('admin.pages.result.result',[
             'result' => $result,
-            'total' => $total,
         ]);
     }
 

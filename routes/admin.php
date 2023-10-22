@@ -12,6 +12,7 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\UserFavController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\PreparatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,14 @@ Route::group(['prefix' => 'report'],function(){
     Route::get('/filter',[ReportController::class,'filter'])->name('report.filter');
     Route::post('/modify',[ReportController::class,'modify'])->name('report.modify');
     Route::post('/delete/{report}',[ReportController::class,'destroy'])->name('report.delete');
+});
+
+Route::group(['prefix' => 'preparator'],function(){
+    Route::get('/', [PreparatorController::class,"index"])->name('preparator');
+    Route::get('/filter',[PreparatorController::class,'filter'])->name('preparator.filter');
+    Route::get('/upsert/{preparator?}',[PreparatorController::class,'upsert'])->name('preparator.upsert');
+    Route::post('/modify',[PreparatorController::class,'modify'])->name('preparator.modify');
+    Route::post('/delete/{preparator}',[PreparatorController::class,'destroy'])->name('preparator.delete');
 });
 
 Route::group(['prefix' => 'user_result'],function(){

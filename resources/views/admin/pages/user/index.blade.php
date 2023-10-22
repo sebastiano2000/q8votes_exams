@@ -266,17 +266,17 @@
         }
     });
 
-    // function edit_password(el) {
-    //     var link = $(el);
-    //     var modal = $("#edit_password");
-    //     var password = link.data('password');
-    //     var id = link.data('id');
-    //     var confirm_password = link.data('confirm_password');
+    function edit_password(el) {
+        var link = $(el);
+        var modal = $("#edit_password");
+        var password = link.data('password');
+        var id = link.data('id');
+        var confirm_password = link.data('confirm_password');
     
-    //     modal.find('#password').val(password);
-    //     modal.find('#id').val(id);
-    //     modal.find('#confirm_password').val(confirm_password);
-    // }
+        modal.find('#password').val(password);
+        modal.find('#id').val(id);
+        modal.find('#confirm_password').val(confirm_password);
+    }
 </script>
 
 @endsection

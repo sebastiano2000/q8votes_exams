@@ -16,15 +16,16 @@ class QuestionController extends Controller
 {
     public function exam(Request $request)
     {
-        if (Auth::user()->finish) {
-            Auth::user()->update(['finish' => 0]);
-            UserResult::where('user_id', Auth::user()->id)->delete();
-        }
-
+        
         $page = !empty($request->input('page')) ? $request->input('page') : '1';
         $perpage = '1';
         $offset = ($page - 1) * $perpage;
-
+        
+        if ($page == '1') {
+            Auth::user()->update(['finish' => 0]);
+            UserResult::where('user_id', Auth::user()->id)->delete();
+        }
+        
         $count = Question::where('subject_id', $request->subject_id)->count();
         $total = $count > 30 ? Subject::where('id', $request->subject_id)->first()->questions_count : $count;
 

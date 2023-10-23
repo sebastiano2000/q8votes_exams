@@ -41,4 +41,9 @@ class UserResult extends Model
 
         return Answer::where('question_id', $answer->question_id)->where('status', 1)->first()->id;
     }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
 }

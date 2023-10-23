@@ -10,7 +10,7 @@ use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Log;
+use App\Models\Log;
 
 class LoginController extends Controller
 {
@@ -81,7 +81,7 @@ class LoginController extends Controller
                         'action'       => 'created',
                         'action_id'    => Auth::user()->id,
                         'message' => "لقد قام " . Auth::user()->name . " بتسجيل الدخول من جهاز مسجل ",
-                        'action_model' =>  Auth::user()->getTable(),
+                        'action_model' =>  'users',
                     ]);
 
                     $user = Auth::user();

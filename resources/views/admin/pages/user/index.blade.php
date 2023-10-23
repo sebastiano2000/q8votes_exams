@@ -84,7 +84,7 @@
                                                             >
                                                                 <i class="ti-pencil"></i> تعديل كلمة السر 
                                                             </a>
-                                                            <a href="{{ route('log.filter', ['name' =>  $user->name] }}" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
+                                                            <a href="{{ route('log.filter', ['name' =>  $user->name]) }}" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
                                                                 عمليات المستخدم
                                                             </a>
                                                             @if($user->role_id != 1)

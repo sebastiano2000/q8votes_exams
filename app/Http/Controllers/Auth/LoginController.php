@@ -10,6 +10,7 @@ use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class LoginController extends Controller
 {
@@ -64,7 +65,6 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-
         $user = User::where('phone', $request->phone)->first();
 
         if (!password_verify($request->password, $user->password)) {
@@ -73,15 +73,24 @@ class LoginController extends Controller
 
         $tokens = explode(',', $user->logintoken);
 
-
         if (isset($_COOKIE["logintoken"])) {
             if (in_array($_COOKIE["logintoken"], $tokens, true)) {
                 if ($this->attemptLogin($request)) {
+                    Log::create([
+                        'user_id'      => Auth::user()->id,
+                        'action'       => 'created',
+                        'action_id'    => Auth::user()->id,
+                        'message' => "لقد قام " . Auth::user()->name . " بتسجيل الدخول من جهاز مسجل ",
+                        'action_model' =>  Auth::user()->getTable(),
+                    ]);
+
                     $user = Auth::user();
+                    
                     if ($request->hasSession()) {
                         $request->session()->put('auth.password_confirmed_at', time());
                     }
                     $user->save();
+
                     return $this->sendLoginResponse($request);
                 }
             } else {
@@ -95,12 +104,15 @@ class LoginController extends Controller
 
                 if ($this->attemptLogin($request)) {
                     $user = Auth::user();
+                    
                     if ($request->hasSession()) {
                         $request->session()->put('auth.password_confirmed_at', time());
                     }
+
                     $tokens[] = $token;
                     $user->logintoken = implode(',', $tokens);
                     $user->save();
+
                     return $this->sendLoginResponse($request);
                 }
             }

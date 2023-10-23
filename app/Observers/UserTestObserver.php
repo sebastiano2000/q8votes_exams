@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\UserTest;
 use Auth;
-use Log;
+use App\Models\Log;
 
 class UserTestObserver
 {

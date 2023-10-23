@@ -35,9 +35,9 @@ class UserFav extends Model
             Log::create([
                 'user_id'      => Auth::user()->id,
                 'action'       => 'deleted',
-                'action_id'    => $userfav->id,
-                'message' => "لقد قام " . Auth::user()->name . " بحذف السوال رقم " . $userfav->question_id . " من المفضلة",
-                'action_model' => $userfav->getTable(),
+                'action_id'    => $userfav,
+                'message' => "لقد قام " . Auth::user()->name . " بحذف السوال رقم " . $request->question_id . " من المفضلة",
+                'action_model' => 'user_favs',
             ]);
         }
 

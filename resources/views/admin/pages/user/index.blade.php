@@ -83,7 +83,10 @@
                                                                 class="btn btn-sm bg-info-light"
                                                             >
                                                                 <i class="ti-pencil"></i> تعديل كلمة السر 
-                                                            </a> 
+                                                            </a>
+                                                            <a href="{{ route('log.filter', ['name' =>  $user->name] }}" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
+                                                                عمليات المستخدم
+                                                            </a>
                                                             @if($user->role_id != 1)
                                                                 <a data-bs-toggle="modal" href="#" class="btn btn-sm bg-danger-light btn_delete" route="{{ route('user.delete',['user' => $user->id])}}">
                                                                     <i class="ti-trash"></i> {{ __('pages.delete') }}

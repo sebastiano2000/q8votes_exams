@@ -20,15 +20,4 @@ class UserFavObserver
             'action_model' => $userfav->getTable(),
         ]);
     }
-
-    public function deleted(UserFav $userfav)
-    {
-        Log::create([
-            'user_id'      => Auth::user()->id,
-            'action'       => 'deleted',
-            'action_id'    => $userfav->id,
-            'message' => "لقد قام " . Auth::user()->name . " بحذف السوال رقم " . $userfav->question_id . " من المفضلة",
-            'action_model' => $userfav->getTable(),
-        ]);
-    }
 }

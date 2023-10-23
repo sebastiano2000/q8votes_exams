@@ -30,7 +30,15 @@ class UserFav extends Model
             );
         }
         else {
-            UserFav::where('question_id', $request->question_id)->where('user_id', Auth::user()->id)->delete();
+            $userfav = UserFav::where('question_id', $request->question_id)->where('user_id', Auth::user()->id)->delete();
+
+            Log::create([
+                'user_id'      => Auth::user()->id,
+                'action'       => 'deleted',
+                'action_id'    => $userfav->id,
+                'message' => "لقد قام " . Auth::user()->name . " بحذف السوال رقم " . $userfav->question_id . " من المفضلة",
+                'action_model' => $userfav->getTable(),
+            ]);
         }
 
         return true;
